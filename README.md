@@ -68,3 +68,7 @@ gcc filename.c -o output
 make
 
 ---
+
+## 📜 License
+
+Educational use.
