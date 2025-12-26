@@ -66,9 +66,10 @@ gcc filename.c -o output
 ### Using Makefile (if available)
 ```bash
 make
+```
 
----
+----
 
-## 📜 License
+### 📜 License
 
 Educational use.
