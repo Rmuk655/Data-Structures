@@ -10,13 +10,11 @@ The code is primarily written in **C++** and **C**, and is intended for academic
 The repository is organized into folders and files covering different topics and assignments, including:
 
 - 📁 **LinkedList** – Linked list implementations and related programs
-- 📁 **Tree** – Tree data structure implementations
 - 📁 **Strings** – String-based problems and utilities
 - 📁 **Rational** – Programs related to rational numbers
 - 📁 **Projects** – Mini projects based on data structures
 - 📁 **DSA Notes** – Notes and reference materials
 - 📄 Assignment source files (`A1P1.c`, `A2.cpp`, etc.)
-- 📄 **Data Structure Syllabus.txt**
 - 🛠️ **Makefile** (if present) for building programs
 
 ---
