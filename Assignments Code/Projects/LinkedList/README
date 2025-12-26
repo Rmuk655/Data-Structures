@@ -1,0 +1,39 @@
+# Assignment 1: 
+Implementing a Stack using a singly linked list of float elements.
+Using abstraction, constructors, copy constructors, operator overloading.
+Structuring code across multiple files: LinkedList.h, LinkedList.cpp, Stack.h, Stack.cpp, testStack.h, main.cpp.
+Writing a Makefile and testing using GCC.
+Including test cases and expected outputs.
+
+# Objective
+Design and implement a Stack of float values using a custom LinkedList class. This will reinforce your understanding of class design, memory management, abstraction, and code modularity in C++.
+You will structure your project into multiple .h and .cpp files, following best software development practices, and include a test suite and a main.cpp file.
+
+# 🧪 Test Cases
+| Test Case | Action                             | Expected Output           |
+|-----------|------------------------------------|---------------------------|
+| 1         | Push 5.5, 3.3, 2.2                 | Stack: 2.2 3.3 5.5        |
+| 2         | Pop top (2.2)                      | Stack: 3.3 5.5            |
+| 3         | Check `top()`                      | 3.3                       |
+| 4         | Pop all, check `empty()`           | true                      |
+| 5         | Copy constructor: `Stack s2(s1);`  | `s2` identical to `s1`    |
+| 6         | Assignment: `s2 = s1`              | `s2` identical to `s1`    |
+| 7         | Push after copy, original unchanged| `s2 != s1`                |
+| 8         | Check size after multiple pushes   | Size: 3                   |
+| 9         | Pop from empty                     | Return false              |
+| 10        | Print empty stack                  | No output or “empty”      |
+
+---
+
+# 🛠️ Build Instructions
+
+1. Create a `Makefile` with these rules:
+   - `make`
+
+2. Compile and run using:
+   ```bash
+   make
+   ./main
+
+make clean
+.\Stack_app.exe
