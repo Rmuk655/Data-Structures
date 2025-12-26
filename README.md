@@ -66,19 +66,6 @@ gcc filename.c -o output
 ### Using Makefile (if available)
 ```bash
 make
-```
-
----
-
-## 📘 Notes & Syllabus
-
-The file **Data Structure Syllabus.txt** provides an outline of the topics covered.
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome via pull requests.
 
 ---
 
