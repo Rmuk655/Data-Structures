@@ -1,20 +1,18 @@
 # Data Structures
 
 This repository contains the implementations and practice code for various **Data Structures and Algorithms (DSA)** concepts.
-The code is primarily written in **C++** and **C**, and is intended for academic learning, practice, and revision.
+The code is primarily written in **C++** and **C**.
 
 ---
 
 ## Repository Structure
 
-The repository is organized into folders and files covering different topics and assignments, including:
+The repository is organized into folders and files covering different topics including:
 
 - **LinkedList** – Linked list implementations and related programs
 - **Strings** – String-based problems and utilities
 - **Rational** – Programs related to rational numbers
-- **Projects** – Mini projects based on data structures
-- **DSA Notes** – Notes and reference materials
-- Assignment source files (`A1P1.c`, `A2.cpp`, etc.)
+- Source files (`A1P1.c`, `A2.cpp`, etc.)
 - **Makefile** (if present) for building programs
 
 ---
@@ -26,7 +24,6 @@ The repository is organized into folders and files covering different topics and
 - String manipulation
 - Hash maps
 - Basic algorithmic problem solving
-- Assignment-style problems for coursework
 
 ---
 
@@ -70,7 +67,3 @@ make
 ```
 
 ----
-
-### 📜 License
-
-Educational use.
