@@ -1,35 +1,36 @@
 # Data Structures
 
-This repository contains implementations, assignments, and practice code for various **Data Structures and Algorithms (DSA)** concepts.
+This repository contains the implementations and practice code for various **Data Structures and Algorithms (DSA)** concepts.
 The code is primarily written in **C++** and **C**, and is intended for academic learning, practice, and revision.
 
 ---
 
-## 📂 Repository Structure
+## Repository Structure
 
 The repository is organized into folders and files covering different topics and assignments, including:
 
-- 📁 **LinkedList** – Linked list implementations and related programs
-- 📁 **Strings** – String-based problems and utilities
-- 📁 **Rational** – Programs related to rational numbers
-- 📁 **Projects** – Mini projects based on data structures
-- 📁 **DSA Notes** – Notes and reference materials
-- 📄 Assignment source files (`A1P1.c`, `A2.cpp`, etc.)
-- 🛠️ **Makefile** (if present) for building programs
+- **LinkedList** – Linked list implementations and related programs
+- **Strings** – String-based problems and utilities
+- **Rational** – Programs related to rational numbers
+- **Projects** – Mini projects based on data structures
+- **DSA Notes** – Notes and reference materials
+- Assignment source files (`A1P1.c`, `A2.cpp`, etc.)
+- **Makefile** (if present) for building programs
 
 ---
 
-## 🧠 Topics Covered
+## Topics Covered
 
 - Linked Lists
 - Trees
 - String manipulation
+- Hash maps
 - Basic algorithmic problem solving
 - Assignment-style problems for coursework
 
 ---
 
-## 🛠️ Languages & Tools
+## Languages & Tools
 
 - **C**
 - **C++**
@@ -38,7 +39,7 @@ The repository is organized into folders and files covering different topics and
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Clone the Repository
 
@@ -49,7 +50,7 @@ cd Data-Structures
 
 ---
 
-## ⚙️ Compilation & Execution
+## Compilation & Execution
 
 ### Compile a C++ file
 ```bash
