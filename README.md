@@ -9,7 +9,6 @@
 The repository is organized into folders and files covering different topics including:
 
 - **LinkedList** – Linked list implementations and related programs
-- **Rational** – Programs related to rational numbers
 - **Makefile** (if present) for building programs
 
 ---
