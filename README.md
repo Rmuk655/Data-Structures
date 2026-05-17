@@ -17,13 +17,15 @@ The repository is organized into folders and files covering different topics inc
 
 ---
 
-## Topics Covered
+## Implementations
 
-- Linked Lists
-- Trees
-- String manipulation
-- Hash maps
-- Basic algorithmic problem solving
+- **Trees**: AVL Tree, Red-Black Tree, 2-4 Tree, Binary Tree
+- **Graphs**: 2CNF SAT Solver, Non-recursive DFS
+- **Hashing**: Perfect Hash Function
+- **Linked Lists**: Singly/Doubly Linked List, Stack, Queue
+- **Sorting**: Merge Sort, Quick Sort, Insertion Sort, Binary Insertion Sort
+- **String manipulation**
+- **Basic algorithmic problem solving**
 
 ---
 
