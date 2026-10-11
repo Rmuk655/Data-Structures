@@ -560,7 +560,8 @@ int main()
     int op;
     cin >> op;
 
-    while (true)
+    // The loop stops when op = 0 or when the input ends.
+    while (op != 0 && cin)
     {
         // If the user inputs 1, we search for the node with the given value key, taken as user input, in the user constructed B-Tree, by calling the search function.
         if (op == 1)

@@ -49,6 +49,7 @@ int no_of_children(node *node)
 // Time complexity = O(h) = O(log n), h is the height of the (2-4)-Tree.
 // Space complexity = O(h) = O(log n), h is the height of the (2-4)-Tree.
 // Search function searches for a given node in a tree with data key.
+// Only the first root->count keys of a node are valid, so we never look at the unused slots.
 node *search(node *root, int key)
 {
     if (root == nullptr)
@@ -56,39 +57,22 @@ node *search(node *root, int key)
         // cout << "Key not found!" << endl;
         return nullptr;
     }
-    else if (no_of_children(root) == 0)
+    int i = 0;
+    while (i < root->count && key > root->data[i])
     {
-        for (int i = 0; i < 3; i++)
-        {
-            if (root->data[i] == key)
-            {
-                // cout << "Found " << root->data[i] << endl;
-                return root;
-            }
-        }
-        return nullptr;
+        i++;
     }
-    if (key < root->data[0])
+    if (i < root->count && root->data[i] == key)
     {
-        return search(root->children[0], key);
-    }
-    for (int i = 0; i < 2; i++)
-    {
-        if (root->data[i] == key)
-        {
-            // cout << "Found " << root->data[i] << endl;
-            return root;
-        }
-        else if (key > root->data[i] && key < root->data[i + 1])
-        {
-            return search(root->children[i + 1], key);
-        }
-    }
-    if (key == root->data[root->count - 1])
-    {
+        // cout << "Found " << root->data[i] << endl;
         return root;
     }
-    return search(root->children[root->count], key);
+    // A leaf has no children, so the search ends here.
+    if (no_of_children(root) == 0)
+    {
+        return nullptr;
+    }
+    return search(root->children[i], key);
 }
 
 void splitchild(node *x, int i)
@@ -233,16 +217,18 @@ int key_child_index(struct node *node, int key)
 
 int predecessor(struct node *root, int index)
 {
+    // The predecessor of root->data[index] is the right-most key of the left subtree.
     struct node *pred = root->children[index];
-    while (pred->children[no_of_children(pred) - 1] != nullptr)
+    while (pred->children[pred->count] != nullptr)
     {
-        pred = pred->children[no_of_children(pred) - 1];
+        pred = pred->children[pred->count];
     }
-    return pred->data[no_of_children(pred) - 1];
+    return pred->data[pred->count - 1];
 }
 
 int successor(struct node *root, int index)
 {
+    // The successor of root->data[index] is the left-most key of the right subtree.
     struct node *succ = root->children[index + 1];
     while (succ->children[0] != nullptr)
     {
@@ -251,9 +237,24 @@ int successor(struct node *root, int index)
     return succ->data[0];
 }
 
+// Clears the unused key and child slots of a node after its count has shrunk.
+void clear_unused(node *x)
+{
+    for (int i = x->count; i < 3; i++)
+    {
+        x->data[i] = INT_MAX;
+    }
+    for (int i = x->count + 1; i < 4; i++)
+    {
+        x->children[i] = nullptr;
+    }
+}
+
 // Time complexity = O(h) = O(log n), h is the height of the (2-4)-Tree.
 // Space complexity = O(h) = O(log n), h is the height of the (2-4)-Tree.
 // Delete function is used to delete a node in the (2-4) tree with the given data value key.
+// Every node on the way down is made to hold at least t = 2 keys (borrowing or merging) before we enter it,
+// so the key can always be removed from a node without violating the minimum number of keys.
 int del(node *&root, int key)
 {
     // We search for the node whose data equals key and store it z.
@@ -268,200 +269,229 @@ int del(node *&root, int key)
 
     int t = 2; // minimum degree for 2-4 tree
 
-    // Case 1: root is a leaf
+    // Case 1: the node is a leaf, so we remove the key and close the gap.
     if (no_of_children(root) == 0)
     {
         int ind = key_index(root, key);
-        for (int i = ind; i < 2; i++)
+        for (int i = ind; i < root->count - 1; i++)
         {
             root->data[i] = root->data[i + 1];
         }
         root->count--;
+        clear_unused(root);
+        if (root->count == 0)
+        {
+            // The tree became empty.
+            delete root;
+            root = nullptr;
+        }
         return key;
     }
 
-    // Case 2: key is in this node
+    // Case 2: the key is in this internal node.
     int ind = key_index(root, key);
-    if (ind >= 0)
+    if (ind >= 0 && ind < root->count)
     {
         struct node *prev_child = root->children[ind];
         struct node *next_child = root->children[ind + 1];
 
-        // Case 2a: left child has ≥ t keys
+        // Case 2a: the left child has at least t keys, so we replace the key by its predecessor.
         if (prev_child->count >= t)
         {
             int pred = predecessor(root, ind);
             root->data[ind] = pred;
-            del(prev_child, pred);
+            del(root->children[ind], pred);
         }
-        // Case 2b: right child has ≥ t keys
+        // Case 2b: the right child has at least t keys, so we replace the key by its successor.
         else if (next_child->count >= t)
         {
             int succ = successor(root, ind);
             root->data[ind] = succ;
-            del(next_child, succ);
+            del(root->children[ind + 1], succ);
         }
-        // Case 2c: both children have t - 1 keys → merge
+        // Case 2c: both children have t - 1 keys, so we merge them with the key and delete from the merged node.
         else
         {
-            // merge prev_child, key[ind], and next_child
-            prev_child->data[1] = root->data[ind];
-            prev_child->data[2] = next_child->data[0];
-
-            // move children if internal
+            prev_child->data[t - 1] = root->data[ind];
+            for (int j = 0; j < next_child->count; j++)
+            {
+                prev_child->data[j + t] = next_child->data[j];
+            }
             if (no_of_children(next_child) > 0)
             {
-                prev_child->children[2] = next_child->children[0];
-                prev_child->children[3] = next_child->children[1];
+                for (int j = 0; j <= next_child->count; j++)
+                {
+                    prev_child->children[j + t] = next_child->children[j];
+                }
             }
             prev_child->count += next_child->count + 1;
-            // shift keys/children left in parent
+
+            // We close the gap in the parent (keys from ind, children from ind + 1).
             for (int j = ind; j < root->count - 1; j++)
             {
                 root->data[j] = root->data[j + 1];
             }
-            for (int j = ind + 1; j <= root->count; j++)
+            for (int j = ind + 1; j < root->count; j++)
             {
-                root->children[j - 1] = root->children[j];
+                root->children[j] = root->children[j + 1];
             }
-
             root->count--;
+            clear_unused(root);
             delete next_child;
 
-            root->children[root->count] = nullptr;
-
-            for (int j = prev_child->count; j < 3; j++)
-            {
-                prev_child->data[j] = INT_MAX;
-            }
-            for (int j = no_of_children(prev_child); j < 4; j++)
-            {
-                prev_child->children[j] = nullptr;
-            }
-
-            // if root is empty → collapse tree
+            // If the parent is the root and became empty, the merged node is the new root.
             if (root->count == 0)
             {
+                node *old_root = root;
                 root = prev_child;
+                delete old_root;
+                del(root, key);
             }
-
-            del(prev_child, key);
+            else
+            {
+                del(prev_child, key);
+            }
         }
         return key;
     }
 
-    // Case 3: key is not in this node, then we recurse into proper child
-    ind = key_child_index(root, key);
-    if (ind < 0)
+    // Case 3: the key is not in this node, so we continue into the child whose subtree contains it.
+    ind = 0;
+    while (ind < root->count && key > root->data[ind])
     {
-        return -1;
+        ind++;
     }
 
     struct node *child_with_key = root->children[ind];
     struct node *sibling_1 = (ind > 0) ? root->children[ind - 1] : nullptr;
     struct node *sibling_2 = (ind < root->count) ? root->children[ind + 1] : nullptr;
 
-    // Fix child before recursion if it has only t - 1 keys (i.e., 1 key)
+    // Before going down, we make sure that the child has at least t keys.
     if (child_with_key->count == t - 1)
     {
-        // Case 3a: borrow from left sibling
+        // Case 3a: borrow a key from the left sibling through the parent.
         if (sibling_1 != nullptr && sibling_1->count >= t)
         {
-            // shift right in child
-            child_with_key->data[1] = child_with_key->data[0];
-            child_with_key->data[0] = root->data[ind - 1];
-
+            for (int i = child_with_key->count - 1; i >= 0; i--)
+            {
+                child_with_key->data[i + 1] = child_with_key->data[i];
+            }
             if (no_of_children(child_with_key) > 0)
             {
-                child_with_key->children[1] = child_with_key->children[0];
-                child_with_key->children[0] = sibling_1->children[sibling_1->count];
+                for (int i = child_with_key->count; i >= 0; i--)
+                {
+                    child_with_key->children[i + 1] = child_with_key->children[i];
+                }
             }
-
+            child_with_key->data[0] = root->data[ind - 1];
+            if (no_of_children(sibling_1) > 0)
+            {
+                child_with_key->children[0] = sibling_1->children[sibling_1->count];
+                sibling_1->children[sibling_1->count] = nullptr;
+            }
             root->data[ind - 1] = sibling_1->data[sibling_1->count - 1];
             sibling_1->count--;
             child_with_key->count++;
+            clear_unused(sibling_1);
         }
-        // Case 3a: borrow from right sibling
+        // Case 3a: borrow a key from the right sibling through the parent.
         else if (sibling_2 != nullptr && sibling_2->count >= t)
         {
-            child_with_key->data[1] = root->data[ind];
-            root->data[ind] = sibling_2->data[0];
-
+            child_with_key->data[child_with_key->count] = root->data[ind];
             if (no_of_children(sibling_2) > 0)
             {
-                child_with_key->children[2] = sibling_2->children[0];
+                child_with_key->children[child_with_key->count + 1] = sibling_2->children[0];
             }
-
-            // shift sibling left
-            sibling_2->data[0] = sibling_2->data[1];
-            sibling_2->data[1] = sibling_2->data[2];
+            root->data[ind] = sibling_2->data[0];
+            for (int i = 1; i < sibling_2->count; i++)
+            {
+                sibling_2->data[i - 1] = sibling_2->data[i];
+            }
+            if (no_of_children(sibling_2) > 0)
+            {
+                for (int i = 1; i <= sibling_2->count; i++)
+                {
+                    sibling_2->children[i - 1] = sibling_2->children[i];
+                }
+            }
             sibling_2->count--;
             child_with_key->count++;
+            clear_unused(sibling_2);
         }
-        // Case 3b: merge with sibling
-        else
+        // Case 3b: merge the child with the left sibling and the separating key from the parent.
+        else if (sibling_1 != nullptr)
         {
-            if (sibling_1 != nullptr)
+            sibling_1->data[t - 1] = root->data[ind - 1];
+            for (int j = 0; j < child_with_key->count; j++)
             {
-                // merge left sibling + parent key + child
-                sibling_1->data[1] = root->data[ind - 1];
-                sibling_1->data[2] = child_with_key->data[0];
-                sibling_1->count = 3;
-                sibling_1->children[2] = child_with_key->children[0];
-                sibling_1->children[3] = child_with_key->children[1];
-                delete child_with_key;
-
-                for (int j = ind - 1; j < root->count - 1; j++)
-                {
-                    root->data[j] = root->data[j + 1];
-                }
-                for (int j = ind; j < root->count; j++)
-                {
-                    root->children[j] = root->children[j + 1];
-                }
-                root->children[root->count] = nullptr;
-                root->count--;
-
-                if (root->count == 0)
-                {
-                    root = sibling_1;
-                }
-
-                child_with_key = sibling_1;
+                sibling_1->data[j + t] = child_with_key->data[j];
             }
-            else if (sibling_2 != nullptr)
+            if (no_of_children(child_with_key) > 0)
             {
-                // merge child + parent key + right sibling
-                child_with_key->data[1] = root->data[ind];
-                child_with_key->data[2] = sibling_2->data[0];
-                child_with_key->count = 3;
-                child_with_key->children[2] = sibling_2->children[0];
-                child_with_key->children[3] = sibling_2->children[1];
-                delete sibling_2;
-
-                // shift parent
-                for (int j = ind; j < root->count - 1; j++)
+                for (int j = 0; j <= child_with_key->count; j++)
                 {
-                    root->data[j] = root->data[j + 1];
+                    sibling_1->children[j + t] = child_with_key->children[j];
                 }
-                for (int j = ind + 1; j <= root->count; j++)
+            }
+            sibling_1->count += child_with_key->count + 1;
+            for (int j = ind - 1; j < root->count - 1; j++)
+            {
+                root->data[j] = root->data[j + 1];
+            }
+            for (int j = ind; j < root->count; j++)
+            {
+                root->children[j] = root->children[j + 1];
+            }
+            root->count--;
+            clear_unused(root);
+            delete child_with_key;
+            child_with_key = sibling_1;
+            if (root->count == 0)
+            {
+                node *old_root = root;
+                root = sibling_1;
+                delete old_root;
+            }
+        }
+        // Case 3b: merge the child with the right sibling and the separating key from the parent.
+        else if (sibling_2 != nullptr)
+        {
+            child_with_key->data[t - 1] = root->data[ind];
+            for (int j = 0; j < sibling_2->count; j++)
+            {
+                child_with_key->data[j + t] = sibling_2->data[j];
+            }
+            if (no_of_children(sibling_2) > 0)
+            {
+                for (int j = 0; j <= sibling_2->count; j++)
                 {
-                    root->children[j] = root->children[j + 1];
+                    child_with_key->children[j + t] = sibling_2->children[j];
                 }
-                root->children[root->count] = nullptr;
-                root->count--;
-
-                if (root->count == 0)
-                {
-                    root = child_with_key;
-                }
+            }
+            child_with_key->count += sibling_2->count + 1;
+            for (int j = ind; j < root->count - 1; j++)
+            {
+                root->data[j] = root->data[j + 1];
+            }
+            for (int j = ind + 1; j < root->count; j++)
+            {
+                root->children[j] = root->children[j + 1];
+            }
+            root->count--;
+            clear_unused(root);
+            delete sibling_2;
+            if (root->count == 0)
+            {
+                node *old_root = root;
+                root = child_with_key;
+                delete old_root;
             }
         }
     }
 
-    // Finally recurse into child
-    return del(child_with_key, key);
-    // return 0;
+    // Finally we continue the deletion in the child.
+    del(child_with_key, key);
+    return key;
 }
 
 int height(struct node *root)
@@ -552,7 +582,8 @@ int main()
     int op;
     cin >> op;
 
-    while (true)
+    // The loop stops when op = 0 or when the input ends.
+    while (op != 0 && cin)
     {
         // If the user inputs 1, we search for the node with the given value key, taken as user input, in the user constructed (2-4) tree, by calling the search function.
         if (op == 1)

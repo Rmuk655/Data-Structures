@@ -22,7 +22,7 @@ node *createNode(int key)
 {
     node *root = new node;
     root->data = key;
-    root->height = 0;
+    root->height = 1;
     root->left = nullptr;
     root->right = nullptr;
     return root;
@@ -31,18 +31,18 @@ node *createNode(int key)
 // Helper function getheight is used to calculate the height of the AVL tree.
 int getheight(node *node)
 {
-    // If the tree doesn't exist, then its height is 0.
+    // An empty tree has height 0; otherwise the height is kept up to date in every node.
     if (node == nullptr)
     {
         return 0;
     }
-    // If the root of the tree has only 1 child, then its height is 1.
-    else if (node->left == nullptr && node->right == nullptr)
-    {
-        return 1;
-    }
-    // Else, we recursively find the height by adding 1 to the max height of the children of the root node.
-    return 1 + max(getheight(node->left), getheight(node->right));
+    return node->height;
+}
+
+// Helper function updateheight recomputes the stored height of a node from the stored heights of its children (O(1)).
+void updateheight(node *node)
+{
+    node->height = 1 + max(getheight(node->left), getheight(node->right));
 }
 
 // Helper function getbalance is used to calculate the balance factor of the AVL tree at a given node.
@@ -94,6 +94,9 @@ struct node *Left_rotate(node *&node)
     node->right = child->left;
     // We set node as child's left child.
     child->left = node;
+    // The heights of the two rotated nodes change, so we update them (node is now the lower one).
+    updateheight(node);
+    updateheight(child);
     // Return the new root of the subtree originally rooted at node.
     return child;
 }
@@ -108,12 +111,14 @@ struct node *Right_rotate(node *&node)
     node->left = child->right;
     // We set node as child's right child.
     child->right = node;
+    // The heights of the two rotated nodes change, so we update them (node is now the lower one).
+    updateheight(node);
+    updateheight(child);
     // Return the new root of the subtree originally rooted at node.
     return child;
 }
 
-// Time complexity = O(n) as written: getbalance() recomputes subtree heights recursively via getheight().
-// It would be O(h) = O(log n) if the height were stored and updated in each node.
+// Time complexity = O(h) = O(log n), h is the height of the AVL-Tree.
 // Space complexity = O(h) = O(log n), h is the height of the AVL-Tree.
 // Insert function is used to insert a new node into the tree with data key.
 node *insert(node *root, int key)
@@ -143,7 +148,7 @@ node *insert(node *root, int key)
     }
 
     // Updating the height attribute of the root node.
-    root->height = getheight(root);
+    updateheight(root);
     // Balancing the AVL tree. Integer variable balance stores the balance factor of tree at the root after the insertion.
     int balance = getbalance(root);
     // Handling the difference cases of balancing the tree.
@@ -176,8 +181,7 @@ node *insert(node *root, int key)
     return root;
 }
 
-// Time complexity = O(n) as written: getbalance() recomputes subtree heights recursively via getheight().
-// It would be O(h) = O(log n) if the height were stored and updated in each node.
+// Time complexity = O(h) = O(log n), h is the height of the AVL-Tree.
 // Space complexity = O(h) = O(log n), h is the height of the AVL-Tree.
 // Delete function is used to delete a node in the AVL tree with the given data value key.
 node *del(node *root, int key)
@@ -228,7 +232,7 @@ node *del(node *root, int key)
     }
 
     // Updating the height attribute of the root node.
-    root->height = getheight(root);
+    updateheight(root);
     // Balancing the AVL tree. Integer variable balance stores the balance factor of tree at the root after the insertion.
     int balance = getbalance(root);
     // Handling the difference cases of balancing the tree.
