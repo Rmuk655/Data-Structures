@@ -682,7 +682,7 @@ int main()
         cout << "2 - Insert an element" << endl;
         cout << "3 - Delete an element" << endl;
         cout << "0 - Exit" << endl;
-        int op;
+        // We reuse the outer op; declaring it again here would shadow it and the loop would never exit.
         cin >> op;
     }
 }
