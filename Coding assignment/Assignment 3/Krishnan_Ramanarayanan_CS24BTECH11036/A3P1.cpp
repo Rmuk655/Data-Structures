@@ -194,7 +194,7 @@ node *del(node *root, int key)
         {
             struct node *temp = root->right;
             delete (root);
-            return nullptr;
+            return temp;
         }
         // If the right child of root doesn't exist, we store and return the left child of root.
         else if (root->right == nullptr)
@@ -210,7 +210,7 @@ node *del(node *root, int key)
             x = x->left;
         }
         // We create a new node with data as the data of the successor of the root node.
-        root = createNode(x->data);
+        root->data = x->data;
         // We delete the node corresponding to the data of the successor of the root node in the right subtree of root.
         root->right = del(root->right, x->data);
     }
@@ -230,13 +230,13 @@ node *del(node *root, int key)
         return Right_rotate(root);
     }
     // Case 3: Right-Left
-    else if (balance < -1 && getbalance(root->left) > 0)
+    else if (balance < -1 && getbalance(root->right) > 0)
     {
         root->right = Right_rotate(root->right);
         return Left_rotate(root);
     }
     // Case 4: Right-Right
-    else if (balance < -1 && getbalance(root->left) <= 0)
+    else if (balance < -1 && getbalance(root->right) <= 0)
     {
         return Left_rotate(root);
     }
@@ -307,7 +307,8 @@ int main()
     int op;
     cin >> op;
 
-    while (true)
+    // The loop stops when op = 0 or when the input ends.
+    while (op != 0 && cin)
     {
         // If the user inputs 1, we search for the node with the given value key, taken as user input, in the user constructed AVL tree, by calling the search function.
         if (op == 1)

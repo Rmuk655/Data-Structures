@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <climits>
+#include <cstdlib>
 
 using namespace std;
 #define RED true
@@ -54,11 +56,9 @@ bool is_ext_node(Node *node)
     {
         return false;
     }
-    if (node->data == INT_MIN && node->color == BLACK)
-    {
-        return 1;
-    }
-    return 0;
+    // External nodes are created pointing to themselves (see create_ext_node), which a real node never does.
+    // This also keeps INT_MIN usable as an ordinary key.
+    return node->left == node && node->right == node;
 }
 
 // Search function searches for a given node in a tree with data key.
@@ -93,11 +93,8 @@ void Left_rotate(Node *&root, Node *paren)
     Node *child = paren->right;
     // Left child of child becomes the root of paren's right subtree.
     paren->right = child->left;
-    // If left child of child is not an external node we update its parent pointer.
-    if (!is_ext_node(child->left))
-    {
-        child->left->parent = paren;
-    }
+    // We update the parent pointer of that subtree, also when it is an external node.
+    child->left->parent = paren;
     // We update child's parent pointer.
     child->parent = paren->parent;
     // If paren is root, its parent is nullptr and hence we set root as child.
@@ -127,11 +124,8 @@ void Right_rotate(Node *&root, Node *paren)
     Node *child = paren->left;
     // Right child of child becomes the root of paren's left subtree.
     paren->left = child->right;
-    // If right child of child is not an external node we update its parent pointer.
-    if (!is_ext_node(child->right))
-    {
-        child->right->parent = paren;
-    }
+    // We update the parent pointer of that subtree, also when it is an external node.
+    child->right->parent = paren;
     // We update child's parent pointer.
     child->parent = paren->parent;
     // If paren is root, its parent is nullptr and hence we set root as child.
@@ -176,6 +170,10 @@ Node *insert(Node *root, int key)
         free(root);
         root = create_new_node(key);
         root->parent = parent;
+        if (parent == nullptr)
+        {
+            root->color = BLACK;
+        }
         return root;
     }
 
@@ -223,14 +221,14 @@ Node *insert(Node *root, int key)
     struct Node *new_node = create_new_node(key);
     if (key < temp->data)
     {
-        delete (temp->left);
+        free(temp->left);
         temp->left = new_node;
         new_node->parent = temp;
     }
     // If key > temp->data we insert it as the right child of temp.
     else
     {
-        delete (temp->right);
+        free(temp->right);
         temp->right = new_node;
         new_node->parent = temp;
     }
@@ -308,11 +306,8 @@ Node *transplant(Node *root, Node *node1, Node *node2)
     {
         node1->parent->right = node2;
     }
-    // If node2 is not an external node, then we can set its parent pointer to node1's parent pointer. The if check is for safety purposes.
-    if (!is_ext_node(node2))
-    {
-        node2->parent = node1->parent;
-    }
+    // node2's parent pointer must be set even when node2 is an external node, because treefixup walks up from it.
+    node2->parent = node1->parent;
     return root;
 }
 

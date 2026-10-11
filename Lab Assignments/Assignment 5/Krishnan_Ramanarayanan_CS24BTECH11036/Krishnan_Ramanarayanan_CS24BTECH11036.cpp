@@ -147,6 +147,11 @@ struct node *successor(struct node *root, int key)
 struct node *del(struct node *root, int key)
 {
     struct node *node = search(root, key);
+    // If the key is not present there is nothing to delete.
+    if (node == nullptr)
+    {
+        return root;
+    }
     if (node->left == nullptr && node->right == nullptr)
     {
         struct node *par = parent(root, node);
@@ -183,6 +188,7 @@ struct node *del(struct node *root, int key)
         {
             par->right = node->left;
         }
+        delete node;
         return root;
     }
     else if (node->left == nullptr && node->right != nullptr)
@@ -202,6 +208,7 @@ struct node *del(struct node *root, int key)
         {
             par->right = node->right;
         }
+        delete node;
         return root;
     }
     struct node *temp = node->right;
