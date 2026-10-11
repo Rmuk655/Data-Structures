@@ -5,7 +5,7 @@ using namespace std;
 
 // Time complexity = O(k) for the rev_k function while it is O(1) for both enqueue and dequeue operations.
 // Space complexity = O(n).
-//  Using a struct Queue to store it's properties like head, tail index position.
+//  Using a struct Queue to store its properties like head, tail index position.
 struct Queue
 {
     int *arr;

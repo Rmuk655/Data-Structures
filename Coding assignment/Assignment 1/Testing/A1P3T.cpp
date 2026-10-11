@@ -5,14 +5,14 @@
 using namespace std;
 #define SIZE_STACK 100
 
-// Using a struct Stack to store it's top element's index + 1.
+// Using a struct Stack to store its top element's index + 1.
 struct Stack
 {
     char arr[SIZE_STACK];
     int top;
 };
 
-// Function to check if the Stack is empty or not by checking if it's top value is 0 which means the no of elements in the stack = 0.
+// Function to check if the Stack is empty or not by checking if its top value is 0 which means the no of elements in the stack = 0.
 bool isEmpty(Stack stack)
 {
     if (stack.top == 0)
@@ -22,7 +22,7 @@ bool isEmpty(Stack stack)
     return false;
 }
 
-// Function to check if the Stack is full or not by checking if it's top value is SIZE_STACK which means the no of elements in the stack
+// Function to check if the Stack is full or not by checking if its top value is SIZE_STACK which means the no of elements in the stack
 // = max no of possible elements in the stack = SIZE_STACK.
 bool isFull(Stack stack)
 {

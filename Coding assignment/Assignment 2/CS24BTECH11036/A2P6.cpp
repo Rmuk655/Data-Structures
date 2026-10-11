@@ -32,10 +32,10 @@ struct node *create_node(int key)
 
 // Time complexity = O(n)
 // Space complexity = O(h) = O(n) (worst case), h is the height of the tree.
-// Function to construct the tree given it's array representation.
+// Function to construct the tree given its array representation.
 struct node *tree_construct(int *arr, int n, int ind)
 {
-    // The function is recursive, we keep creating nodes for the root and it's children and attach them to the root's left, right and so on recursively.
+    // The function is recursive, we keep creating nodes for the root and its children and attach them to the root's left, right and so on recursively.
     // If we reach an index in the array out of bounds, it means the node doesn't exist in the tree. Hence, we return nullptr.
     if (ind >= n)
     {
@@ -46,7 +46,7 @@ struct node *tree_construct(int *arr, int n, int ind)
     {
         return nullptr;
     }
-    // We create root node and recursively create it's respective left and right subtrees.
+    // We create root node and recursively create its respective left and right subtrees.
     struct node *root = create_node(arr[ind]);
     root->left = tree_construct(arr, n, 2 * ind + 1);
     // Setting the parent pointer for the left child of root.
@@ -142,7 +142,7 @@ int main()
     istringstream iss(input);
     string tok;
 
-    // We parse through the string till we reach it's end.
+    // We parse through the string till we reach its end.
     while (iss >> tok)
     {
         // NULL/-1 tells us that the given node does not exist (it is a nullptr). We set the corresponding array representation as INT_MIN.
@@ -158,7 +158,7 @@ int main()
             ind++;
         }
     }
-    // We construct the tree and return it's root, a struct node*.
+    // We construct the tree and return its root, a struct node*.
     root = tree_construct(arr, ind, 0);
     // We call the respective, non-recursive implementations of inorder, preorder, postorder.
     int low, high;

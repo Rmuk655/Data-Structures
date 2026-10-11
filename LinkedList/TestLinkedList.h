@@ -4,7 +4,7 @@
 #include <iostream>
 class TestLinkedList
 {
-public:
+  public:
     void test_push_back_and_length();
     void test_push_front_and_pop_front();
     void test_isEmpty();

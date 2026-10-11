@@ -49,8 +49,8 @@ void push(struct PriorityQueue *pq, pair<int, int> p)
     // We update the size of the PriorityQueue.
     pq->size++;
 
-    // We perform heapify logic and reorder the elements of the priority queue in such a way that no child is smaller than it's parent, else we swap them.
-    // We run it in a while loop so that we can perform the same logic on the children of the node swapped with it's child too.
+    // We perform heapify logic and reorder the elements of the priority queue in such a way that no child is smaller than its parent, else we swap them.
+    // We run it in a while loop so that we can perform the same logic on the children of the node swapped with its child too.
     while (pq_size > 0 && pq->arr[(pq_size - 1) / 2].first > pq->arr[pq_size].first)
     {
         pair<int, int> temp = pq->arr[pq_size];
@@ -78,7 +78,7 @@ pair<int, int> extract_min(struct PriorityQueue *pq)
     pq->size--;
 
     // We perform the heapify logic to ensure that the PriorityQueue properties are not violated after deletion of the smallest element.
-    // We start with the first element of the PriorityQueue and continue down the PriorityQueue to check for it's children.
+    // We start with the first element of the PriorityQueue and continue down the PriorityQueue to check for its children.
     int i = 0;
     while (true)
     {
@@ -103,7 +103,7 @@ pair<int, int> extract_min(struct PriorityQueue *pq)
             break;
         }
 
-        // Otherwise, we swap pq->arr[i] with pq->arr[smallest] and set i = smallest and check for it's children in the next iteration of the while loop.
+        // Otherwise, we swap pq->arr[i] with pq->arr[smallest] and set i = smallest and check for its children in the next iteration of the while loop.
         pair<int, int> temp = pq->arr[i];
         pq->arr[i] = pq->arr[smallest];
         pq->arr[smallest] = temp;
@@ -114,7 +114,7 @@ pair<int, int> extract_min(struct PriorityQueue *pq)
     return root;
 }
 
-// Main function Dijkstra uses the Dijikstra's algorithm to find the single source shortest path from the source to all vertices of the graph.
+// Main function Dijkstra uses the Dijkstra's algorithm to find the single source shortest path from the source to all vertices of the graph.
 void Dijkstra(vector<vector<pair<int, int>>> graph, int start)
 {
     // We initialize the PriorityQueue pq using the function initPQ().
@@ -133,7 +133,7 @@ void Dijkstra(vector<vector<pair<int, int>>> graph, int start)
     // We loop till the PriorityQueue is empty.
     while (!isEmptyPQ(pq))
     {
-        // We get the closest vertex (from start) present in the PriorityQueue, find it's distance, closest vertex and store it in d, u.
+        // We get the closest vertex (from start) present in the PriorityQueue, find its distance, closest vertex and store it in d, u.
         pair<int, int> p = extract_min(pq);
         int d = p.first, u = p.second;
         // If we have visited the vertex u, we proceed with the next iteration.
@@ -141,14 +141,14 @@ void Dijkstra(vector<vector<pair<int, int>>> graph, int start)
         {
             continue;
         }
-        // We set visited[u] as true as we just explored it's path from start.
+        // We set visited[u] as true as we just explored its path from start.
         visited[u] = TRUE;
 
         // We iterate on each pair of elements in the adjacency matrix of the closest element.
         for (pair<int, int> p : graph[u])
         {
-            // We store the weight of the edge between u and the element in it's adjacency matrix we are iterating on in w.
-            // We update the distance between start and the element in it's adjacency matrix and store it in alt.
+            // We store the weight of the edge between u and the element in its adjacency matrix we are iterating on in w.
+            // We update the distance between start and the element in its adjacency matrix and store it in alt.
             int w = p.second, alt = d + w;
             // If we find an alternative path of shorter length than the previous paths for this matrix element, we update it.
             if (alt < dist[p.first])
@@ -163,7 +163,7 @@ void Dijkstra(vector<vector<pair<int, int>>> graph, int start)
         }
     }
 
-    // For each element in the graph, we print the details of it's vertex, length of path from start and path.
+    // For each element in the graph, we print the details of its vertex, length of path from start and path.
     for (int v = 1; v < graph.size(); v++)
     {
         cout << "Vertex " << v << ": ";
@@ -214,6 +214,6 @@ int main()
     // We take in input, the starting vertex of the graph for our traversal.
     int s;
     cin >> s;
-    // We print the length of the shortest path, shortest path from the starting vertex of the graph to all other vertices of the graph using Dijikstra's algorithm
+    // We print the length of the shortest path, shortest path from the starting vertex of the graph to all other vertices of the graph using Dijkstra's algorithm
     Dijkstra(graph, s);
 }

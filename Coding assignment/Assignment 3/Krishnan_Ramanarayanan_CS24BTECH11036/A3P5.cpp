@@ -36,7 +36,7 @@ struct Node
 //      return ext_node;
 //  }
 
-// // Function to create a node in the RB Tree and initialize it's corresponding attributes.
+// // Function to create a node in the RB Tree and initialize its corresponding attributes.
 // struct Node *create_new_node(int key)
 // {
 //     Node *temp = new Node;
@@ -77,7 +77,7 @@ bool is_ext_node(Node *node)
 //     {
 //         return nullptr;
 //     }
-//     // If the root of the tree has no children, then we check if it's data value matches the key value.
+//     // If the root of the tree has no children, then we check if its data value matches the key value.
 //     else if (root->left == nullptr && root->right == nullptr)
 //     {
 //         // If the data value of the root node matches the key value, then we return root as the result of the search operation.
@@ -104,24 +104,24 @@ bool is_ext_node(Node *node)
 //     Node *child = paren->right;
 //     // Left child of child becomes the root of paren's right subtree.
 //     paren->right = child->left;
-//     // If left child of child is not an external node we update it's parent pointer.
+//     // If left child of child is not an external node we update its parent pointer.
 //     if (!is_ext_node(child->left))
 //     {
 //         child->left->parent = paren;
 //     }
 //     // We update child's parent pointer.
 //     child->parent = paren->parent;
-//     // If paren is root, it's parent is nullptr and hence we set root as child.
+//     // If paren is root, its parent is nullptr and hence we set root as child.
 //     if (paren->parent == nullptr)
 //     {
 //         root = child;
 //     }
-//     // If paren is the left child of it's parent, then we set left child of paren's parent as child.
+//     // If paren is the left child of its parent, then we set left child of paren's parent as child.
 //     else if (paren->parent->left == paren)
 //     {
 //         paren->parent->left = child;
 //     }
-//     // If paren is the right child of it's parent, then we set right child of paren's parent as child.
+//     // If paren is the right child of its parent, then we set right child of paren's parent as child.
 //     else
 //     {
 //         paren->parent->right = child;
@@ -131,31 +131,31 @@ bool is_ext_node(Node *node)
 //     paren->parent = child;
 // }
 
-// // Left rotate function is used to convert a given branch of a tree with parent paren, left child child to parent child and right child paren.
+// // Right rotate function is used to convert a given branch of a tree with parent paren, left child child to parent child and right child paren.
 // void Right_rotate(Node *&root, Node *paren)
 // {
-//     // We store the right child of paren as child.
+//     // We store the left child of paren as child.
 //     Node *child = paren->left;
 //     // Right child of child becomes the root of paren's left subtree.
 //     paren->left = child->right;
-//     // If left child of child is not an external node we update it's parent pointer.
+//     // If right child of child is not an external node we update its parent pointer.
 //     if (!is_ext_node(child->right))
 //     {
 //         child->right->parent = paren;
 //     }
 //     // We update child's parent pointer.
 //     child->parent = paren->parent;
-//     // If paren is root, it's parent is nullptr and hence we set root as child.
+//     // If paren is root, its parent is nullptr and hence we set root as child.
 //     if (paren->parent == nullptr)
 //     {
 //         root = child;
 //     }
-//     // If paren is the left child of it's parent, then we set left child of paren's parent as child.
+//     // If paren is the left child of its parent, then we set left child of paren's parent as child.
 //     else if (paren->parent->left == paren)
 //     {
 //         paren->parent->left = child;
 //     }
-//     // If paren is the right child of it's parent, then we set right child of paren's parent as child.
+//     // If paren is the right child of its parent, then we set right child of paren's parent as child.
 //     else
 //     {
 //         paren->parent->right = child;
@@ -253,49 +253,49 @@ bool is_ext_node(Node *node)
 //     {
 //         // We find the uncle of the newly inserted node's parent and store it in uncle.
 //         struct Node *uncle = other_child(new_node->parent->parent, new_node->parent);
-//         // If the uncle is red colored, then we just recolor new_node, it's parent, grandparent and uncle.
+//         // If the uncle is red colored, then we just recolor new_node, its parent, grandparent and uncle.
 //         if (uncle != nullptr && uncle->color == true)
 //         {
 //             // grandparent is colored red, parent, uncle to black while new_node color remains unchanged.
 //             new_node->parent->parent->color = true;
 //             new_node->parent->color = false;
 //             uncle->color = false;
-//             // We set new_node to it's grandparent to check if RED node, no RED child property is violated in the tree above.
+//             // We set new_node to its grandparent to check if RED node, no RED child property is violated in the tree above.
 //             new_node = new_node->parent->parent;
 //         }
 //         // If the uncle is an external node or colored black, we handle it in 4 different cases.
 //         else
 //         {
-//             // Case 1: The parent is the left child of it's grandparent.
+//             // Case 1: The parent is the left child of its grandparent.
 //             if (new_node->parent == new_node->parent->parent->left)
 //             {
-//                 // Case 1a: The child is the right child of it's parent.
+//                 // Case 1a: The child is the right child of its parent.
 //                 if (new_node == new_node->parent->right)
 //                 {
 //                     new_node = new_node->parent;
 //                     Left_rotate(root, new_node);
 //                 }
-//                 // Case 1b: The child is the left child of it's parent.
+//                 // Case 1b: The child is the left child of its parent.
 //                 new_node->parent->color = BLACK;
 //                 new_node->parent->parent->color = RED;
 //                 Right_rotate(root, new_node->parent->parent);
 //             }
-//             // Case 2: The parent is the right child of it's grandparent.
+//             // Case 2: The parent is the right child of its grandparent.
 //             else
 //             {
-//                 // Case 2a: The child is the left child of it's parent.
+//                 // Case 2a: The child is the left child of its parent.
 //                 if (new_node == new_node->parent->left)
 //                 {
 //                     new_node = new_node->parent;
 //                     Right_rotate(root, new_node);
 //                 }
-//                 // Case 2b: The child is the right child of it's parent.
+//                 // Case 2b: The child is the right child of its parent.
 //                 new_node->parent->color = BLACK;
 //                 new_node->parent->parent->color = RED;
 //                 Left_rotate(root, new_node->parent->parent);
 //             }
 //         }
-//         // We recolor root to black, if it's color was changed by the above code.
+//         // We recolor root to black, if its color was changed by the above code.
 //         root->color = BLACK;
 //     }
 //     // We return the root of the tree so that the root pointer can be reset to the new root, if there were changes to it after insertion.

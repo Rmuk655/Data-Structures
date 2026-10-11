@@ -6,12 +6,18 @@
 template <typename T>
 class DNode
 {
-public:
+  public:
     T data;
     DNode<T> *next;
     DNode<T> *prev;
-    DNode() : data(), next(nullptr) {} // TBD 2:initialize prev
-    DNode(T val) : data(val), next(nullptr) {}
+    DNode()
+        : data(), next(nullptr)
+    {
+    } // TBD 2:initialize prev
+    DNode(T val)
+        : data(val), next(nullptr)
+    {
+    }
 };
 
 template <typename T>
@@ -23,11 +29,11 @@ std::ostream &operator<<(std::ostream &os, const DoublyLinkedList<T> &other);
 template <typename T>
 class DoublyLinkedList
 {
-private:
+  private:
     DNode<T> *head;
     void swap_with_next(DNode<T> *a);
 
-public:
+  public:
     DoublyLinkedList();
     DoublyLinkedList(const DoublyLinkedList<T> &other);
     ~DoublyLinkedList();

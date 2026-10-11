@@ -3,13 +3,13 @@
 #include <iostream>
 class Rational
 {
-private:
+  private:
     int numerator;
     int denominator;
     int gcd(int a, int b);
     void reduce();
 
-public:
+  public:
     Rational add(const Rational &a, const Rational &b) const;
     Rational operator+(const Rational &other) const;
     Rational subtract(const Rational &a, const Rational &b) const;

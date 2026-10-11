@@ -109,7 +109,7 @@ vector<int> node_search(struct node *root, vector<int> &count)
         vector<int> temp;
         return temp;
     }
-    // Vectors left_searched, right_searched which store the distances between the root->left, root->right and the elements in it's left, right subtrees respectively.
+    // Vectors left_searched, right_searched which store the distances between the root->left, root->right and the elements in its left, right subtrees respectively.
     vector<int> left_searched = node_search(root->left, count), right_searched = node_search(root->right, count);
     // We loop through the left, right subtrees and update frequency array with distances between every possible node of the left subtree with every
     // possible node of the right subtree.
@@ -124,7 +124,7 @@ vector<int> node_search(struct node *root, vector<int> &count)
             }
         }
     }
-    // Vector result stores the result we return as left_searched, right_searched, the distances between root and it's respective left/right subtrees.
+    // Vector result stores the result we return as left_searched, right_searched, the distances between root and its respective left/right subtrees.
     vector<int> result;
     // The distance between root and itself is 0. We don't update this in the frequency array though.
     result.push_back(0);

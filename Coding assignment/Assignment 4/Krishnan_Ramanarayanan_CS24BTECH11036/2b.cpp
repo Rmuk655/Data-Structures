@@ -93,13 +93,13 @@ void min_span_tree_kruskal(vector<vector<pair<int, int>>> graph)
     // We store all the edges of the graph once in the vector edge_set and the MST elements in the vector mst.
     vector<vector<int>> edge_set, mst;
 
-    // For each vertex of the graph, we loop through it's adjacency list.
+    // For each vertex of the graph, we loop through its adjacency list.
     for (int u = 1; u < graph.size(); u++)
     {
-        // We loop through every pair in it's adjacency list/edge starting from vertex u.
+        // We loop through every pair in its adjacency list/edge starting from vertex u.
         for (pair<int, int> p : graph[u])
         {
-            // We find the end vertex of the edge starting from u to an element v in it's adjacenct list and the weight of the edge from u to v.
+            // We find the end vertex of the edge starting from u to an element v in its adjacent list and the weight of the edge from u to v.
             int v = p.first, w = p.second;
             // To avoid duplicate edges, we only insert the edge u -> v once.
             if (u < v)
@@ -132,9 +132,9 @@ void min_span_tree_kruskal(vector<vector<pair<int, int>>> graph)
         }
     }
 
-    // For each edge in the MST of the graph, we print it's weight and the total weight of all the edges.
+    // For each edge in the MST of the graph, we print its weight and the total weight of all the edges.
     cout << "Edges in MST:" << endl;
-    // For all vertices, if the vertex has not been traversed, meaning it's parent is still -1, then we ignore it. We print the remaining as they are part of MST.
+    // For all vertices, if the vertex has not been traversed, meaning its parent is still -1, then we ignore it. We print the remaining as they are part of MST.
     for (vector<int> e : mst)
     {
         cout << "(" << e[0] << ", " << e[1] << ") weight = " << e[2] << endl;

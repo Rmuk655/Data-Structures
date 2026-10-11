@@ -27,13 +27,13 @@ struct node *create_node(struct node *head, int val)
         head->next = nullptr;
         return head;
     }
-    // We use a temp pointer to traverse through the list to reach the last element to which we attach the new node as it's next.
+    // We use a temp pointer to traverse through the list to reach the last element to which we attach the new node as its next.
     struct node *temp = head;
     while (temp->next != nullptr)
     {
         temp = temp->next;
     }
-    // Creating a new node, updating it's data, next attributes and attaching it to the list
+    // Creating a new node, updating its data, next attributes and attaching it to the list
     temp->next = new node();
     temp->next->data = val;
     temp->next->next = nullptr;

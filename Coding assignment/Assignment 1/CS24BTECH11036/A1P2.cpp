@@ -179,7 +179,7 @@ void print(struct XORList *list)
         cout << endl;
         return;
     }
-    // We use prev, curr, next node pointers to traverse through the list to reach it's end.
+    // We use prev, curr, next node pointers to traverse through the list to reach its end.
     struct node *prev = nullptr, *curr = list->head, *next = xxor(prev, curr->np);
     while (next != nullptr)
     {

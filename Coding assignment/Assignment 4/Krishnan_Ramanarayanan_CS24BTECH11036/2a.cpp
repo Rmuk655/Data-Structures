@@ -49,8 +49,8 @@ void push(struct PriorityQueue *pq, pair<int, int> p)
     // We update the size of the PriorityQueue.
     pq->size++;
 
-    // We perform heapify logic and reorder the elements of the priority queue in such a way that no child is smaller than it's parent, else we swap them.
-    // We run it in a while loop so that we can perform the same logic on the children of the node swapped with it's child too.
+    // We perform heapify logic and reorder the elements of the priority queue in such a way that no child is smaller than its parent, else we swap them.
+    // We run it in a while loop so that we can perform the same logic on the children of the node swapped with its child too.
     while (pq_size > 0 && pq->arr[(pq_size - 1) / 2].first > pq->arr[pq_size].first)
     {
         pair<int, int> temp = pq->arr[pq_size];
@@ -78,7 +78,7 @@ pair<int, int> extract_min(struct PriorityQueue *pq)
     pq->size--;
 
     // We perform the heapify logic to ensure that the PriorityQueue properties are not violated after deletion of the smallest element.
-    // We start with the first element of the PriorityQueue and continue down the PriorityQueue to check for it's children.
+    // We start with the first element of the PriorityQueue and continue down the PriorityQueue to check for its children.
     int i = 0;
     while (true)
     {
@@ -103,7 +103,7 @@ pair<int, int> extract_min(struct PriorityQueue *pq)
             break;
         }
 
-        // Otherwise, we swap pq->arr[i] with pq->arr[smallest] and set i = smallest and check for it's children in the next iteration of the while loop.
+        // Otherwise, we swap pq->arr[i] with pq->arr[smallest] and set i = smallest and check for its children in the next iteration of the while loop.
         pair<int, int> temp = pq->arr[i];
         pq->arr[i] = pq->arr[smallest];
         pq->arr[smallest] = temp;
@@ -130,7 +130,7 @@ void min_span_tree_prim(vector<vector<pair<int, int>>> graph, int start)
     // We loop till the PriorityQueue is empty.
     while (!isEmptyPQ(pq))
     {
-        // We get the minimum weight edge present in the PriorityQueue, find it's end vertex, weight and store it in w, u.
+        // We get the minimum weight edge present in the PriorityQueue, find its end vertex, weight and store it in w, u.
         pair<int, int> p = extract_min(pq);
         int w = p.first, u = p.second;
 
@@ -149,25 +149,25 @@ void min_span_tree_prim(vector<vector<pair<int, int>>> graph, int start)
             pair<int, int> p1 = graph[u][i];
             // v is the end vertex, w is the weight of the edge between u, v.
             int v = p1.first, w = p1.second;
-            // If the edge (u, v) is not included in the MST and it's weight is lesser than the min weight of all edges connected to v, then we update key[v].
+            // If the edge (u, v) is not included in the MST and its weight is lesser than the min weight of all edges connected to v, then we update key[v].
             if (inMST[v] == FALSE && w < key[v])
             {
                 // Update key[v].
                 key[v] = w;
                 // Update parent[v]
                 parent[v] = u;
-                // Push the pair into the PriorityQueue for further iterations forming the MST by linking graph nodes via it's parent vector values.
+                // Push the pair into the PriorityQueue for further iterations forming the MST by linking graph nodes via its parent vector values.
                 pair<int, int> p2 = {key[v], v};
                 push(pq, p2);
             }
         }
     }
 
-    // For each edge in the MST of the graph, we print it's weight and the total weight of all the edges.
+    // For each edge in the MST of the graph, we print its weight and the total weight of all the edges.
     cout << "Edges in MST:" << endl;
     // weight_sum stores the sum of weights of all edges in the graph.
     int weight_sum = 0;
-    // For all vertices, if the vertex has not been traversed, meaning it's parent is still -1, then we ignore it. We print the remaining as they are part of MST.
+    // For all vertices, if the vertex has not been traversed, meaning its parent is still -1, then we ignore it. We print the remaining as they are part of MST.
     for (int v = 0; v < graph.size(); v++)
     {
         if (parent[v] != -1)
