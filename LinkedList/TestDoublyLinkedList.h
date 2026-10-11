@@ -2,7 +2,7 @@
 #include "DoublyLinkedList.h"
 class TestDoublyLinkedList
 {
-public:
+  public:
     void testPushBack();
     void testPushFront();
     void testPopFront();

@@ -7,14 +7,14 @@ using namespace std;
 
 // Time complexity = O(n)
 // Space complexity = O(n)
-// Using a struct Stack to store it's top element's index + 1.
+// Using a struct Stack to store its top element's index + 1.
 struct Stack
 {
     char arr[SIZE_STACK];
     int top;
 };
 
-// Function to check if the Stack is empty or not by checking if it's top value is 0 which means the no of elements in the stack = 0.
+// Function to check if the Stack is empty or not by checking if its top value is 0 which means the no of elements in the stack = 0.
 bool isEmpty(Stack *stack)
 {
     if (stack->top == 0)
@@ -24,7 +24,7 @@ bool isEmpty(Stack *stack)
     return false;
 }
 
-// Function to check if the Stack is full or not by checking if it's top value is SIZE_STACK which means the no of elements in the
+// Function to check if the Stack is full or not by checking if its top value is SIZE_STACK which means the no of elements in the
 // stack = max no of possible elements in the stack = SIZE_STACK.
 bool isFull(Stack *stack)
 {
@@ -95,7 +95,7 @@ string infix_to_postfix(string s)
 {
     // We create a new Stack which we will use for converting an infix expression to a postfix expression.
     Stack *stac = new Stack();
-    // We initialize it's top to 0.
+    // We initialize its top to 0.
     stac->top = 0;
     // We store the answer in the string ans. So, we initialize it as "" and subsequently append elements to it consecutively.
     string ans = "";

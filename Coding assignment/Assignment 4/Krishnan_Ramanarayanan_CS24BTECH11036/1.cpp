@@ -96,10 +96,10 @@ void bfs(int start, vector<vector<int>> graph)
     {
         // We get the integer value corresponding to the data of a node in the graph at the head of the Queue
         int u = queue->arr[queue->head];
-        // For each node of the graph, we explore the nodes in it's adjacency matrix and enqueue them.
+        // For each node of the graph, we explore the nodes in its adjacency matrix and enqueue them.
         for (int i = 0; i < graph[u].size(); i++)
         {
-            // If the node is unexplored, it's color will be white.
+            // If the node is unexplored, its color will be white.
             if (color[graph[u][i]] == WHITE)
             {
                 // Set the values in the above vectors appropriately.
@@ -110,12 +110,12 @@ void bfs(int start, vector<vector<int>> graph)
                 enqueue(queue, graph[u][i]);
             }
         }
-        // We dequeue the element whose adjacency matrix elements have been explored and set it's color to black.
+        // We dequeue the element whose adjacency matrix elements have been explored and set its color to black.
         dequeue(queue);
         color[u] = BLACK;
     }
 
-    // For each element in the graph, we print the details of it's vertex, length of path from start and path.
+    // For each element in the graph, we print the details of its vertex, length of path from start and path.
     for (int v = 1; v < graph.size(); v++)
     {
         cout << "Vertex " << v << ": ";

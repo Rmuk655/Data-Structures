@@ -28,10 +28,10 @@ struct node *create_node(int key)
 
 // Time complexity = O(n)
 // Space complexity = O(n)
-// Function to construct the tree given it's array representation.
+// Function to construct the tree given its array representation.
 struct node *tree_construct(int *arr, int n, int ind)
 {
-    // The function is recursive, we keep creating nodes for the root and it's children and attach them to the root's left, right and so on recursively.
+    // The function is recursive, we keep creating nodes for the root and its children and attach them to the root's left, right and so on recursively.
     // If we reach an index in the array out of bounds, it means the node doesn't exist in the tree. Hence, we return nullptr.
     if (ind >= n)
     {
@@ -42,21 +42,21 @@ struct node *tree_construct(int *arr, int n, int ind)
     {
         return nullptr;
     }
-    // We create root node and recursively create it's respective left and right subtrees.
+    // We create root node and recursively create its respective left and right subtrees.
     struct node *root = create_node(arr[ind]);
     root->left = tree_construct(arr, n, 2 * ind + 1);
     root->right = tree_construct(arr, n, 2 * ind + 2);
     return root;
 }
 
-// Using a struct Stack to store it's top element's index + 1.
+// Using a struct Stack to store its top element's index + 1.
 struct Stack
 {
     struct node *arr[1000];
     int top;
 };
 
-// Function to check if the Stack is empty or not by checking if it's top value is 0 which means the no of elements in the stack = 0.
+// Function to check if the Stack is empty or not by checking if its top value is 0 which means the no of elements in the stack = 0.
 bool isEmpty(Stack *stack)
 {
     if (stack->top == 0)
@@ -66,7 +66,7 @@ bool isEmpty(Stack *stack)
     return false;
 }
 
-// Function to check if the Stack is full or not by checking if it's top value is SIZE_STACK which means the no of elements in the stack
+// Function to check if the Stack is full or not by checking if its top value is SIZE_STACK which means the no of elements in the stack
 // = max no of possible elements in the stack = SIZE_STACK.
 bool isFull(Stack *stack)
 {
@@ -128,7 +128,7 @@ void inorder(struct node *root)
     // We now loop through the tree to print the inorder representation. We stop when the stack is empty and we have reached a leaf node.
     while (curr != nullptr || !isEmpty(stac))
     {
-        // We first reach the left most node of the tree and push all elements from the root to it's left most node in the stack.
+        // We first reach the left most node of the tree and push all elements from the root to its left most node in the stack.
         if (curr != nullptr)
         {
             Push(stac, curr);
@@ -171,16 +171,16 @@ void preorder(struct node *root)
     // We now loop through the tree to print the inorder representation. We stop when the stack is empty.
     while (!isEmpty(stac))
     {
-        // We pop the top element present in the stack and print it's corresponding data.
+        // We pop the top element present in the stack and print its corresponding data.
         curr = Pop(stac);
         cout << curr->data << " ";
-        // If the given node is the considered the root of it's subtrees and
-        // Case 1: It's right child is not nullptr: We push it into the stack to print it after we print the left child.
+        // If the given node is the considered the root of its subtrees and
+        // Case 1: Its right child is not nullptr: We push it into the stack to print it after we print the left child.
         if (curr->right != nullptr)
         {
             Push(stac, curr->right);
         }
-        // Case 2: It's left child is not nullptr: We push it into the stack to print it before we print the right child.
+        // Case 2: Its left child is not nullptr: We push it into the stack to print it before we print the right child.
         if (curr->left != nullptr)
         {
             Push(stac, curr->left);
@@ -213,13 +213,13 @@ void postorder(struct node *root)
     // We now loop through the tree to print the inorder representation. We stop when the stack is empty and we have reached a leaf node.
     while (curr != nullptr || !isEmpty(stac))
     {
-        // We first reach the left most node of the tree and push all elements from the root to it's left most node in the stack.
+        // We first reach the left most node of the tree and push all elements from the root to its left most node in the stack.
         if (curr != nullptr)
         {
             Push(stac, curr);
             curr = curr->left;
         }
-        // Once we have reached the left most element we have to now check the right child of the left most element and print it's elements in postorder.
+        // Once we have reached the left most element we have to now check the right child of the left most element and print its elements in postorder.
         else
         {
             // We check if the last stack element has a right child and if we have visited it or not and set curr to the right child.
@@ -264,7 +264,7 @@ int main()
         istringstream iss(input);
         string tok;
 
-        // We parse through the string till we reach it's end.
+        // We parse through the string till we reach its end.
         while (iss >> tok)
         {
             // NULL/-1 tells us that the given node does not exist (it is a nullptr). We set the corresponding array representation as INT_MIN.
@@ -280,7 +280,7 @@ int main()
                 ind++;
             }
         }
-        // We construct the tree and return it's root, a struct node*.
+        // We construct the tree and return its root, a struct node*.
         root = tree_construct(arr, ind, 0);
         // We call the respective, non-recursive implementations of inorder, preorder, postorder.
         inorder(root);

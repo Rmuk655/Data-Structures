@@ -5,7 +5,7 @@
 #include "Queue.h"
 class TestQueue
 {
-public:
+  public:
     void testEnqueue();
     void testDequeue();
     void testCopyConstructor();

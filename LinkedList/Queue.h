@@ -12,10 +12,10 @@ std::ostream &operator<<(std::ostream &os, const Queue<T> &q);
 template <typename T>
 class Queue
 {
-private:
+  private:
     DoublyLinkedList<T> Dlist;
 
-public:
+  public:
     Queue();
     Queue(const Queue<T> &other);
     ~Queue();

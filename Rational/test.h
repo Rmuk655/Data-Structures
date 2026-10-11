@@ -1,6 +1,6 @@
 class test
 {
-public:
+  public:
     int basictests();
     int boundarytests();
     int advancedtests();

@@ -6,10 +6,17 @@
 
 ## Repository Structure
 
-The repository is organized into folders and files covering different topics including:
-
-- **LinkedList** – Linked list implementations and related programs
-- **Makefile** (if present) for building programs
+| Folder | Contents |
+|---|---|
+| `LinkedList/` | Singly and doubly linked lists, stack and queue as C++ templates, with tests and a Makefile |
+| `Rational/` | Rational-number class with operator overloading, tests and a Makefile |
+| `Strings/`, `hello-gcc/` | Small C practice programs |
+| `Notes program practice/` | Searching and sorting algorithms written alongside lectures |
+| `Coding Assignments My Code/` | Coding assignment solutions in C and C++ |
+| `Coding assignment/` | Coding assignments 1-4 with test programs and per-assignment READMEs |
+| `Lab Assignments/` | Lab assignments 1-9 (binary search trees, red-black trees, heaps, Bloom filter, 2-SAT, ...) |
+| `Assignments/` | Lab assignment problem statements (PDF) |
+| `Assignments Code solutions/` | C/C++ implementations of AVL, red-black and 2-4 trees, hashing, a 2-CNF SAT solver and more |
 
 ---
 

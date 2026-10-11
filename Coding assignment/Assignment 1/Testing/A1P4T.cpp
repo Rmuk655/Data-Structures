@@ -13,13 +13,13 @@ using namespace std;
 
 class Person
 {
-public:
+  public:
     long long int NHS_number;
     string first_name;
     string email;
     string gender;
     Person(long long int _NHS_number = 0, string _first_name = "", string _email = "", string _gender = "")
-        : NHS_number(_NHS_number), first_name(_first_name), email(_email), gender(_gender) {};
+        : NHS_number(_NHS_number), first_name(_first_name), email(_email), gender(_gender){};
     friend ostream &operator<<(ostream &os, const Person &p)
     {
         // os << "NHS Number: " << p.NHS_number << ", "
@@ -33,7 +33,7 @@ public:
 
 class DotProductHashFunction
 {
-private:
+  private:
     unsigned long long prime;           // a large prime
     unsigned int numBuckets;            // number of buckets
     vector<long long> dotProductCoeffs; // Random set of "r" dotProduct Coeffs.
@@ -107,7 +107,7 @@ private:
         return hash;
     }
 
-public:
+  public:
     int base;               // key will be converted to this base
     long long universeSize; // Default 10^10
     // Default constructor
@@ -124,7 +124,7 @@ public:
         r = computeR(base, universeSize);
         // Add Error handling and set r= 33 if r goes out of bounds
 
-        // initiatilize dotProductCoeffs of size r to random numbers from 0 to base -1
+        // initialize dotProductCoeffs of size r to random numbers from 0 to base -1
         random_device rd;
         mt19937 gen(rd());                        // Seed with a fixed value for reproducibility
         uniform_int_distribution<> dis(0, prime); // Adjust the range as needed
@@ -219,7 +219,7 @@ public:
 
 class Bucket
 {
-public:
+  public:
     vector<Person> table;
     vector<Person> secondary_hash; // Random set of "r" dotProduct Coeffs.
     DotProductHashFunction h2;
@@ -227,7 +227,7 @@ public:
 
 class PerfectHashTable
 {
-public:
+  public:
     vector<Bucket> buckets; // First-level buckets
     // Each bucket contains a second-level hash table with its own hash function
     int numBuckets; // Number of first-level buckets

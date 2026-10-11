@@ -31,12 +31,12 @@ node *createNode(int key)
 // Helper function getheight is used to calculate the height of the AVL tree.
 int getheight(node *node)
 {
-    // If the tree doesn't exist, then it's height is 0.
+    // If the tree doesn't exist, then its height is 0.
     if (node == nullptr)
     {
         return 0;
     }
-    // If the root of the tree has only 1 child, then it's height is 1.
+    // If the root of the tree has only 1 child, then its height is 1.
     else if (node->left == nullptr && node->right == nullptr)
     {
         return 1;
@@ -52,7 +52,7 @@ int getbalance(node *node)
     {
         return 0;
     }
-    // We find the heights of the left and right child of node and return it's difference as the balance of the AVL tree.
+    // We find the heights of the left and right child of node and return its difference as the balance of the AVL tree.
     int a = getheight(node->left), b = getheight(node->right);
     return a - b;
 }
@@ -72,19 +72,19 @@ node *search(node *root, int key)
     {
         return root;
     }
-    // If root->data > key, then we search for the node with data value key in the left subtree of the RB-tree.
+    // If root->data > key, then we search for the node with data value key in the left subtree of the AVL tree.
     else if (root->data > key)
     {
         return search(root->left, key);
     }
-    // Else if root->data < key, then we search for the node with data value key in the right subtree of the RB-tree.
+    // Else if root->data < key, then we search for the node with data value key in the right subtree of the AVL tree.
     else
     {
         return search(root->right, key);
     }
 }
 
-// Left rotate function is used to convert a given branch of a tree with node node, it's right child of node to node's
+// Left rotate function is used to convert a given branch of a tree with node node, its right child of node to node's
 // parent and right child's left child as node.
 struct node *Left_rotate(node *&node)
 {
@@ -98,7 +98,7 @@ struct node *Left_rotate(node *&node)
     return child;
 }
 
-// Right rotate function is used to convert a given branch of a tree with node node, it's left child of node to node's
+// Right rotate function is used to convert a given branch of a tree with node node, its left child of node to node's
 // parent and left child's right child as node.
 struct node *Right_rotate(node *&node)
 {
@@ -112,7 +112,8 @@ struct node *Right_rotate(node *&node)
     return child;
 }
 
-// Time complexity = O(h) = O(log n), h is the height of the AVL-Tree.
+// Time complexity = O(n) as written: getbalance() recomputes subtree heights recursively via getheight().
+// It would be O(h) = O(log n) if the height were stored and updated in each node.
 // Space complexity = O(h) = O(log n), h is the height of the AVL-Tree.
 // Insert function is used to insert a new node into the tree with data key.
 node *insert(node *root, int key)
@@ -175,12 +176,13 @@ node *insert(node *root, int key)
     return root;
 }
 
-// Time complexity = O(h) = O(log n), h is the height of the AVL-Tree.
+// Time complexity = O(n) as written: getbalance() recomputes subtree heights recursively via getheight().
+// It would be O(h) = O(log n) if the height were stored and updated in each node.
 // Space complexity = O(h) = O(log n), h is the height of the AVL-Tree.
-// Delete function is used to delete a node in the RB-Tree with the given data value key.
+// Delete function is used to delete a node in the AVL tree with the given data value key.
 node *del(node *root, int key)
 {
-    // If the given key is not present in the given RB-Tree with root node, we print Key not found and return the root of the tree.
+    // If the given key is not present in the given AVL tree with root node, we print Key not found and return the root of the tree.
     if (search(root, key) == nullptr)
     {
         cout << "Key not found!" << endl;
@@ -267,7 +269,7 @@ void inorder(struct node *root)
     {
         return;
     }
-    // If the tree has only 1 node, the root, then we print it's data and return.
+    // If the tree has only 1 node, the root, then we print its data and return.
     else if (root->left == nullptr && root->right == nullptr)
     {
         cout << root->data << " ";
@@ -311,7 +313,7 @@ int main()
         {
             int key;
             cin >> key;
-            // If a node with the given data = key exists in the RB-Tree, then we delete the node and print the value deleted.
+            // If a node with the given data = key exists in the AVL tree, then we delete the node and print the value deleted.
             if (search(root, key))
             {
                 root = del(root, key);

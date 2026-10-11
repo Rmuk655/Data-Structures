@@ -174,14 +174,14 @@ void print_level(struct node *root, int level)
         return;
     }
     // If the level to be printed is some level > 1, then we have 2 cases:
-    // Case 1: If the given root node exists, then print it's left and right subtrees in array representation recursively.
+    // Case 1: If the given root node exists, then print its left and right subtrees in array representation recursively.
     if (root != nullptr)
     {
         print_level(root->left, level - 1);
         print_level(root->right, level - 1);
     }
-    // Case 2: If the given root node doesn't exist, then print nullptr for each of it's children recursively.
-    // If a given node is null, it's children are also null. To represent this we need to print it's null subtree recursively.
+    // Case 2: If the given root node doesn't exist, then print nullptr for each of its children recursively.
+    // If a given node is null, its children are also null. To represent this we need to print it's null subtree recursively.
     else
     {
         print_level(nullptr, level - 1);
@@ -191,7 +191,7 @@ void print_level(struct node *root, int level)
 
 // Time complexity = O(n^2)
 // Space complexity = O(n)
-// The main print function that prints the array representation of the tree given it's root 'root'.
+// The main print function that prints the array representation of the tree given its root 'root'.
 void print_arr_rep(struct node *root)
 {
     // Handling the edge case when the root is nullptr, tree doesn't exist and hence we print NULL.
@@ -232,7 +232,7 @@ int main()
         istringstream iss(input);
         string tok;
 
-        // We parse through the string till we reach it's end.
+        // We parse through the string till we reach its end.
         while (iss >> tok)
         {
             // We parse the string as an integer and add to the inord array at the corresponding index, maintained by ind.
@@ -244,7 +244,7 @@ int main()
         // We use stringstream to parse the given string input by breaking it into k substrings and parsing them separately.
         istringstream iss_2(input);
 
-        // We parse through the string till we reach it's end.
+        // We parse through the string till we reach its end.
         while (iss_2 >> tok)
         {
             preord.push_back(stoi(tok));

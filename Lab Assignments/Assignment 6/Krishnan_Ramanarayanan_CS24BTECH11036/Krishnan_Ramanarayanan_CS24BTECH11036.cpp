@@ -93,24 +93,24 @@ void Left_rotate(Node *&root, Node *paren)
     Node *child = paren->right;
     // Left child of child becomes the root of paren's right subtree.
     paren->right = child->left;
-    // If left child of child is not an external node we update it's parent pointer.
+    // If left child of child is not an external node we update its parent pointer.
     if (!is_ext_node(child->left))
     {
         child->left->parent = paren;
     }
     // We update child's parent pointer.
     child->parent = paren->parent;
-    // If paren is root, it's parent is nullptr and hence we set root as child.
+    // If paren is root, its parent is nullptr and hence we set root as child.
     if (paren->parent == nullptr)
     {
         root = child;
     }
-    // If paren is the left child of it's parent, then we set left child of paren's parent as child.
+    // If paren is the left child of its parent, then we set left child of paren's parent as child.
     else if (paren->parent->left == paren)
     {
         paren->parent->left = child;
     }
-    // If paren is the right child of it's parent, then we set right child of paren's parent as child.
+    // If paren is the right child of its parent, then we set right child of paren's parent as child.
     else
     {
         paren->parent->right = child;
@@ -120,31 +120,31 @@ void Left_rotate(Node *&root, Node *paren)
     paren->parent = child;
 }
 
-// Left rotate function is used to convert a given branch of a tree with parent paren, left child child to parent child and right child paren.
+// Right rotate function is used to convert a given branch of a tree with parent paren, left child child to parent child and right child paren.
 void Right_rotate(Node *&root, Node *paren)
 {
-    // We store the right child of paren as child.
+    // We store the left child of paren as child.
     Node *child = paren->left;
     // Right child of child becomes the root of paren's left subtree.
     paren->left = child->right;
-    // If left child of child is not an external node we update it's parent pointer.
+    // If right child of child is not an external node we update its parent pointer.
     if (!is_ext_node(child->right))
     {
         child->right->parent = paren;
     }
     // We update child's parent pointer.
     child->parent = paren->parent;
-    // If paren is root, it's parent is nullptr and hence we set root as child.
+    // If paren is root, its parent is nullptr and hence we set root as child.
     if (paren->parent == nullptr)
     {
         root = child;
     }
-    // If paren is the left child of it's parent, then we set left child of paren's parent as child.
+    // If paren is the left child of its parent, then we set left child of paren's parent as child.
     else if (paren->parent->left == paren)
     {
         paren->parent->left = child;
     }
-    // If paren is the right child of it's parent, then we set right child of paren's parent as child.
+    // If paren is the right child of its parent, then we set right child of paren's parent as child.
     else
     {
         paren->parent->right = child;
@@ -240,49 +240,49 @@ Node *insert(Node *root, int key)
     {
         // We find the uncle of the newly inserted node's parent and store it in uncle.
         struct Node *uncle = other_child(new_node->parent->parent, new_node->parent);
-        // If the uncle is red colored, then we just recolor new_node, it's parent, grandparent and uncle.
+        // If the uncle is red colored, then we just recolor new_node, its parent, grandparent and uncle.
         if (uncle != nullptr && uncle->color == true)
         {
             // grandparent is colored red, parent, uncle to black while new_node color remains unchanged.
             new_node->parent->parent->color = true;
             new_node->parent->color = false;
             uncle->color = false;
-            // We set new_node to it's grandparent to check if RED node, no RED child property is violated in the tree above.
+            // We set new_node to its grandparent to check if RED node, no RED child property is violated in the tree above.
             new_node = new_node->parent->parent;
         }
         // If the uncle is an external node or colored black, we handle it in 4 different cases.
         else
         {
-            // Case 1: The parent is the left child of it's grandparent.
+            // Case 1: The parent is the left child of its grandparent.
             if (new_node->parent == new_node->parent->parent->left)
             {
-                // Case 1a: The child is the right child of it's parent.
+                // Case 1a: The child is the right child of its parent.
                 if (new_node == new_node->parent->right)
                 {
                     new_node = new_node->parent;
                     Left_rotate(root, new_node);
                 }
-                // Case 1b: The child is the left child of it's parent.
+                // Case 1b: The child is the left child of its parent.
                 new_node->parent->color = BLACK;
                 new_node->parent->parent->color = RED;
                 Right_rotate(root, new_node->parent->parent);
             }
-            // Case 2: The parent is the right child of it's grandparent.
+            // Case 2: The parent is the right child of its grandparent.
             else
             {
-                // Case 2a: The child is the left child of it's parent.
+                // Case 2a: The child is the left child of its parent.
                 if (new_node == new_node->parent->left)
                 {
                     new_node = new_node->parent;
                     Right_rotate(root, new_node);
                 }
-                // Case 2b: The child is the right child of it's parent.
+                // Case 2b: The child is the right child of its parent.
                 new_node->parent->color = BLACK;
                 new_node->parent->parent->color = RED;
                 Left_rotate(root, new_node->parent->parent);
             }
         }
-        // We recolor root to black, if it's color was changed by the above code.
+        // We recolor root to black, if its color was changed by the above code.
         root->color = BLACK;
     }
     // We return the root of the tree so that the root pointer can be reset to the new root, if there were changes to it after insertion.
@@ -298,17 +298,17 @@ Node *transplant(Node *root, Node *node1, Node *node2)
     {
         root = node2;
     }
-    // If node1 is the left child of it's parent, we set node2 as the left child of node1's parent.
+    // If node1 is the left child of its parent, we set node2 as the left child of node1's parent.
     else if (node1 == node1->parent->left)
     {
         node1->parent->left = node2;
     }
-    // If node1 is the right child of it's parent, we set node2 as the right child of node1's parent.
+    // If node1 is the right child of its parent, we set node2 as the right child of node1's parent.
     else
     {
         node1->parent->right = node2;
     }
-    // If node2 is not an external node, then we can set it's parent pointer to node1's parent pointer. The if check is for safety purposes.
+    // If node2 is not an external node, then we can set its parent pointer to node1's parent pointer. The if check is for safety purposes.
     if (!is_ext_node(node2))
     {
         node2->parent = node1->parent;
@@ -325,7 +325,7 @@ void treefixup(Node *&root, Node *node)
     {
         // We find the given node's sibling and store it in the variable sibling.
         Node *sibling = other_child(node->parent, node);
-        // Case 1: node is a left child of it's parent.
+        // Case 1: node is a left child of its parent.
         if (node == node->parent->left)
         {
             // Case 1a: Sibling is red, we left rotate the tree and set sibling to BLACK, parent to RED.
@@ -346,7 +346,7 @@ void treefixup(Node *&root, Node *node)
             }
             else
             {
-                // Case 1c: Sibling and it's right child are both BLACK.
+                // Case 1c: Sibling and its right child are both BLACK.
                 if (sibling->right->color == BLACK)
                 {
                     sibling->left->color = BLACK;
@@ -362,10 +362,10 @@ void treefixup(Node *&root, Node *node)
                 node = root;
             }
         }
-        // Case 2: node is a right child of it's parent.
+        // Case 2: node is a right child of its parent.
         else
         {
-            // Case 1: Sibling is red, we right rotate the tree and set sibling to BLACK, parent to RED.
+            // Case 2a: Sibling is red, we right rotate the tree and set sibling to BLACK, parent to RED.
             if (sibling->color == RED)
             {
                 sibling->color = BLACK;
@@ -375,7 +375,7 @@ void treefixup(Node *&root, Node *node)
                 sibling = node->parent->left;
             }
 
-            // Case 1b: both the children of the parent are black.
+            // Case 2b: both the children of the parent are black.
             if (sibling->right->color == BLACK && sibling->left->color == BLACK)
             {
                 sibling->color = RED;
@@ -383,7 +383,7 @@ void treefixup(Node *&root, Node *node)
             }
             else
             {
-                // Case 1c: Sibling and it's right child are both BLACK.
+                // Case 2c: Sibling and its left child are both BLACK.
                 if (sibling->left->color == BLACK)
                 {
                     sibling->right->color = BLACK;
@@ -391,7 +391,7 @@ void treefixup(Node *&root, Node *node)
                     Left_rotate(root, sibling);
                     sibling = node->parent->left;
                 }
-                // Case 1d: Sibling's right child is RED.
+                // Case 2d: Sibling's left child is RED.
                 sibling->color = node->parent->color;
                 node->parent->color = BLACK;
                 sibling->left->color = BLACK;
@@ -424,13 +424,13 @@ int del(Node *&root, int key)
     // RB tree properties.
     bool successor_original_color = successor->color;
 
-    // If the left child of the node to be deleted doesn't exist, we transplant it to it's parent.
+    // If the left child of the node to be deleted doesn't exist, we transplant it to its parent.
     if (is_ext_node(node_to_delete->left))
     {
         node_to_be_fixed = node_to_delete->right;
         root = transplant(root, node_to_delete, node_to_delete->right);
     }
-    // If the right child of the node to be deleted doesn't exist, we transplant it to it's parent.
+    // If the right child of the node to be deleted doesn't exist, we transplant it to its parent.
     else if (is_ext_node(node_to_delete->right))
     {
         node_to_be_fixed = node_to_delete->left;
@@ -452,10 +452,10 @@ int del(Node *&root, int key)
         // We need this variable to check if we removed a black node as it may violate RB-Tree properties and we need to fix it using fixup function.
         successor_original_color = successor->color;
         // The successor, being the left most node in the right subtree of node_to_delete does not have a left child.
-        // Hence, we have to fix it's right child after deletion of the successor at it's original position as it may violate RB tree properties.
+        // Hence, we have to fix its right child after deletion of the successor at it's original position as it may violate RB tree properties.
         node_to_be_fixed = successor->right;
 
-        // If the successor is not the right child of the node to be deleted, then we transplant it's right subtree to itself.
+        // If the successor is not the right child of the node to be deleted, then we transplant its right subtree to itself.
         if (successor != node_to_delete->right)
         {
             root = transplant(root, successor, successor->right);
@@ -468,13 +468,13 @@ int del(Node *&root, int key)
             node_to_be_fixed->parent = successor;
         }
 
-        // We replace the node to be deleted with it's successor and modify pointer appropriately.
+        // We replace the node to be deleted with its successor and modify pointer appropriately.
         root = transplant(root, node_to_delete, successor);
         // Left subtree of the deleted node must be the left subtree of the successor node as it has replaced the deleted node.
         // So we update successor's left pointer and the successor's left's parent pointer.
         successor->left = node_to_delete->left;
         successor->left->parent = successor;
-        // Since successor replaces the node to be deleted, we set it's color also to the color of the deleted node.
+        // Since successor replaces the node to be deleted, we set its color also to the color of the deleted node.
         successor->color = node_to_delete->color;
     }
 
@@ -504,7 +504,7 @@ void preorder(struct Node *root)
     {
         return;
     }
-    // If the tree has only 1 node, the root, then we print it's data and return.
+    // If the tree has only 1 node, the root, then we print its data and return.
     else if (root->left == nullptr && root->right == nullptr)
     {
         cout << root->data << " ";
@@ -524,7 +524,7 @@ void inorder(struct Node *root)
     {
         return;
     }
-    // If the tree has only 1 node, the root, then we print it's data and return.
+    // If the tree has only 1 node, the root, then we print its data and return.
     else if (root->left == nullptr && root->right == nullptr)
     {
         cout << root->data << " ";

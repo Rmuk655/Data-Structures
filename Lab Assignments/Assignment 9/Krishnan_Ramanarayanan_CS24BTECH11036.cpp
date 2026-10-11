@@ -108,7 +108,7 @@ bool satisfiable(int n, vector<struct node *> nodes_list, struct node *graph_sta
     // print_dfs(nodes_list);
     for (int i = (int)order.size() - 1; i >= 0; i--)
     {
-        int index = order[i] > 0 ? n + order[i] - 1: n + order[i];
+        int index = order[i] > 0 ? n + order[i] - 1 : n + order[i];
         if (nodes_list[index]->color == WHITE)
         {
             dfs_2(nodes_list[index], comp_id, component, n);

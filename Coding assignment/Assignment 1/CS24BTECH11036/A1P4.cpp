@@ -15,20 +15,20 @@ using namespace std;
 // We create a class Person which stores the respective NHS_number, first_name, email, gender of each person instance.
 class Person
 {
-public:
+  public:
     long long int NHS_number;
     string first_name;
     string email;
     string gender;
     // Initializing a new member of class Person with 0, empty strings respectively..
     Person(long long int _NHS_number = 0, string _first_name = "", string _email = "", string _gender = "")
-        : NHS_number(_NHS_number), first_name(_first_name), email(_email), gender(_gender) {};
+        : NHS_number(_NHS_number), first_name(_first_name), email(_email), gender(_gender){};
 };
 
 // We create a class DotProductHashFunction which stores important numbers needed for the hashing function.
 class DotProductHashFunction
 {
-private:
+  private:
     unsigned long long prime;           // a large prime
     unsigned int numBuckets;            // number of buckets
     vector<long long> dotProductCoeffs; // Random set of "r" dotProduct Coeffs.
@@ -48,7 +48,7 @@ private:
     {
         // We store result in the vector result.
         vector<int> result;
-        // We store a copy of the key in key_copy as we will perform operations on key_copy changing it's value.
+        // We store a copy of the key in key_copy as we will perform operations on key_copy changing its value.
         long long int key_copy = key;
         // We calculate and store the number of digits in base r representation for key.
         int len = 0;
@@ -133,7 +133,7 @@ private:
         return hash;
     }
 
-public:
+  public:
     int base;               // Key will be converted to this base
     long long universeSize; // Default value is 10^10
 
@@ -151,7 +151,7 @@ public:
         // We write a  function to compute r based on universe size and base
         r = computeR(base, universeSize);
 
-        // We initiatilize dotProductCoeffs of size r to random numbers from 0 to base - 1
+        // We initialize dotProductCoeffs of size r to random numbers from 0 to base - 1
         random_device rd;
         // We seed with a fixed value for reproducibility
         mt19937 gen(rd());
@@ -253,7 +253,7 @@ public:
 // We define a class Bucket which is used to store the hash values for both primary hash, dot product values for secondary hash.
 class Bucket
 {
-public:
+  public:
     // Stores the list of keys which collided in first hash.
     vector<Person> table;
     // We use it to store the rehashed keys which collided in first hash using secondary hash.
@@ -265,7 +265,7 @@ public:
 // We define a class PerfectHashTable which is used to perform both primary and secondary hash.
 class PerfectHashTable
 {
-public:
+  public:
     vector<Bucket> buckets; // First-level buckets
     // Each bucket contains a second-level hash table with its own hash function
     int numBuckets; // Number of first-level buckets

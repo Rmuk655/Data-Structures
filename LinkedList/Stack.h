@@ -12,10 +12,10 @@ std::ostream &operator<<(std::ostream &os, const Stack<T> &list);
 template <typename T>
 class Stack
 {
-private:
+  private:
     LinkedList<T> list;
 
-public:
+  public:
     Stack();
     Stack(const Stack &other);
     ~Stack();

@@ -253,7 +253,7 @@ int successor(struct node *root, int index)
 
 // Time complexity = O(h) = O(log n), h is the height of the (2-4)-Tree.
 // Space complexity = O(h) = O(log n), h is the height of the (2-4)-Tree.
-// Delete function is used to delete a node in the RB tree with the given data value key.
+// Delete function is used to delete a node in the (2-4) tree with the given data value key.
 int del(node *&root, int key)
 {
     // We search for the node whose data equals key and store it z.
@@ -554,7 +554,7 @@ int main()
 
     while (true)
     {
-        // If the user inputs 1, we search for the node with the given value key, taken as user input, in the user constructed RB-Tree, by calling the search function.
+        // If the user inputs 1, we search for the node with the given value key, taken as user input, in the user constructed (2-4) tree, by calling the search function.
         if (op == 1)
         {
             int key;

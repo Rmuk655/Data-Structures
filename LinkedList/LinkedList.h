@@ -5,10 +5,13 @@
 template <typename T>
 class Node
 {
-public:
+  public:
     T data;
     Node<T> *next;
-    Node(T val) : data(val), next(nullptr) {}
+    Node(T val)
+        : data(val), next(nullptr)
+    {
+    }
 };
 
 template <typename T>
@@ -20,12 +23,12 @@ std::ostream &operator<<(std::ostream &os, const LinkedList<T> &list);
 template <typename T>
 class LinkedList
 {
-private:
+  private:
     Node<T> *head;
     int size;
     void sortedInsert(Node<T> *newNode, Node<T> *&sorted);
 
-public:
+  public:
     LinkedList();                        // Default constructor
     LinkedList(const LinkedList &other); // Copy constructor
     ~LinkedList();                       // Destructor
@@ -37,8 +40,11 @@ public:
     void print() const;
     bool search(T val);
     bool del(T val);
-    void insertionSort();                     // new
-    Node<T> *getHead() const { return head; } // Accessor for head
+    void insertionSort(); // new
+    Node<T> *getHead() const
+    {
+        return head;
+    } // Accessor for head
     LinkedList<T> &operator=(const LinkedList<T> &other);
     bool operator==(const LinkedList<T> &other);
     T GetHeadValue() const;

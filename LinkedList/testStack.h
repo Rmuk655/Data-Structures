@@ -6,7 +6,7 @@
 using namespace std;
 class TestStack
 {
-public:
+  public:
     void runAllTests();
     void testPush();
     void testPop();

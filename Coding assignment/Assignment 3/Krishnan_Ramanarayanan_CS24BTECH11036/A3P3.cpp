@@ -260,7 +260,7 @@ int successor(struct BTreeNode *root, int index)
 
 // Time complexity = O(h) = O(log n), h is the height of the B-Tree.
 // Space complexity = O(h) = O(log n), h is the height of the B-Tree.
-// Delete function is used to delete a node in the RB tree with the given data value key.
+// Delete function is used to delete a node in the B-tree with the given data value key.
 int del(struct BTreeNode *&root, int key)
 {
     // We search for the node whose data equals key and store it z.

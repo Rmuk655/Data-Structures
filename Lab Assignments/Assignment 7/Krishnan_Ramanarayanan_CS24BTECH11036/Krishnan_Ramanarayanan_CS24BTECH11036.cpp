@@ -6,7 +6,7 @@ using namespace std;
 // Time complexity = O(n log n)
 // Space complexity = O(n)
 
-// We create a struct Heap that stores the array of elements to be sorted and it's size.
+// We create a struct Heap that stores the array of elements to be sorted and its size.
 struct Heap
 {
     int *arr;
@@ -43,21 +43,21 @@ void Heapify(Heap *&heap, int index)
     // The variable minimum represents the index of the minimum value of the element which we will find and update recursively.
     int left = 2 * index + 1, right = 2 * index + 2, minimum = index;
 
-    // If the assumed index is the minimum and it's left child has a greater value than itself, then we should heapify further down the array.
+    // If the assumed index is the minimum and its left child has a greater value than itself, then we should heapify further down the array.
     // Hence, we change minimum to left index and repeat the same process using recursive Heapify calls.
     if (left < heap->size && heap->arr[left] > heap->arr[minimum])
     {
         minimum = left;
     }
 
-    // If the assumed index is the minimum and it's right child has a greater value than itself, then we should heapify further down the array.
+    // If the assumed index is the minimum and its right child has a greater value than itself, then we should heapify further down the array.
     // Hence, we change minimum to right index and repeat the same process using recursive Heapify calls.
     if (right < heap->size && heap->arr[right] > heap->arr[minimum])
     {
         minimum = right;
     }
 
-    // If the given index is either smaller than it's left child or right child, then we heapify further down the heap after swapping.
+    // If the given index is either smaller than its left child or right child, then we heapify further down the heap after swapping.
     if (minimum != index)
     {
         swap_int(&heap->arr[index], &heap->arr[minimum]);
@@ -135,7 +135,7 @@ int main()
         cin >> num;
         array[i] = num;
     }
-    // The array is now part of our heap struct along with it's size.
+    // The array is now part of our heap struct along with its size.
     heap->arr = array;
     heap->size = n;
     // We sort the elements of the array in ascending order and print them.
