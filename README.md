@@ -26,7 +26,7 @@ Implementations of fundamental data structures and algorithms in C++, written by
 | `Rational/` | Rational-number class with operator overloading, tests and a Makefile |
 | `Notes program practice/` | Searching and sorting algorithms |
 | `Strings/`, `hello-gcc/` | Small C practice programs |
-| `Assignments Code solutions/` | Additional implementations (AVL, red-black, 2-4 trees, hashing, 2-CNF SAT) built with a Makefile |
+| `Assignments Code solutions/` | Implementations for the programs in `problem-statements/` (postfix evaluator, queues, perfect hashing, AVL, red-black and 2-4 trees, heap sort, 2-CNF SAT), built with a Makefile |
 
 ## Build and run
 
