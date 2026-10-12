@@ -418,17 +418,21 @@ int del(Node *&root, int key)
     // We store the original color of the node to be deleted as if it is black, the tree might need some fixup, done using fixup function to make sure it follows
     // RB tree properties.
     bool successor_original_color = successor->color;
+    // The external node that this deletion removes from the tree. It is freed at the end so that it does not leak.
+    Node *dropped_ext = nullptr;
 
     // If the left child of the node to be deleted doesn't exist, we transplant it to its parent.
     if (is_ext_node(node_to_delete->left))
     {
         node_to_be_fixed = node_to_delete->right;
+        dropped_ext = node_to_delete->left;
         root = transplant(root, node_to_delete, node_to_delete->right);
     }
     // If the right child of the node to be deleted doesn't exist, we transplant it to its parent.
     else if (is_ext_node(node_to_delete->right))
     {
         node_to_be_fixed = node_to_delete->left;
+        dropped_ext = node_to_delete->right;
         root = transplant(root, node_to_delete, node_to_delete->left);
     }
     // If both children exist, then we find the successor to the given node and transplant it.
@@ -444,6 +448,8 @@ int del(Node *&root, int key)
 
         // We set the variable successor as the successor of the node to be deleted.
         successor = temp;
+        // The successor's left child is an external node that is replaced by the left subtree of node_to_delete.
+        dropped_ext = successor->left;
         // We need this variable to check if we removed a black node as it may violate RB-Tree properties and we need to fix it using fixup function.
         successor_original_color = successor->color;
         // The successor, being the left most node in the right subtree of node_to_delete does not have a left child.
@@ -487,6 +493,8 @@ int del(Node *&root, int key)
 
     // After fixing up the tree, we finally delete the node to be deleted and return the value of the node deleted.
     int value_of_del_node = node_to_delete->data;
+    // External nodes are allocated with malloc in create_ext_node, so they are released with free.
+    free(dropped_ext);
     delete node_to_delete;
     return value_of_del_node;
 }

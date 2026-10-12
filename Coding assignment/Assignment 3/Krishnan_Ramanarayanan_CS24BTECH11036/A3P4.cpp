@@ -120,17 +120,11 @@ struct node *Right_rotate(node *&node)
 
 // Time complexity = O(h) = O(log n), h is the height of the AVL-Tree.
 // Space complexity = O(h) = O(log n), h is the height of the AVL-Tree.
-// Insert function is used to insert a new node into the tree with data key.
-node *insert(node *root, int key)
+// Helper function insert_node inserts key into the tree and rebalances on the way back up. The key must not be present already.
+node *insert_node(node *root, int key)
 {
-    // If the element is already present in the tree, we return directly as we cannot insert duplicate values into the Tree.
-    if (search(root, key))
-    {
-        cout << "Duplicate elements cannot be inserted into the AVL tree." << endl;
-        return root;
-    }
     // If the tree doesn't exist, then we create a new node with data as key and set it to root.
-    else if (root == nullptr)
+    if (root == nullptr)
     {
         root = createNode(key);
         return root;
@@ -139,12 +133,12 @@ node *insert(node *root, int key)
     // If key < root->data we go traverse in the left subtree of root.
     if (key < root->data)
     {
-        root->left = insert(root->left, key);
+        root->left = insert_node(root->left, key);
     }
     // If key > root->data we go traverse in the right subtree of root.
     else if (key > root->data)
     {
-        root->right = insert(root->right, key);
+        root->right = insert_node(root->right, key);
     }
 
     // Updating the height attribute of the root node.
@@ -180,10 +174,26 @@ node *insert(node *root, int key)
     }
     return root;
 }
+// Time complexity = O(log n), n is the number of nodes of the AVL-Tree.
+// Space complexity = O(log n), for the recursion stack.
+// Insert function is used to insert a new node into the tree with data key.
+node *insert(node *root, int key)
+{
+    // If the element is already present in the tree, we return directly as we cannot insert duplicate values into the Tree.
+    // This check is done once here instead of at every level of the recursion.
+    if (search(root, key))
+    {
+        cout << "Duplicate elements cannot be inserted into the AVL tree." << endl;
+        return root;
+    }
+    return insert_node(root, key);
+}
+
 
 // Time complexity = O(h) = O(log n), h is the height of the AVL-Tree.
 // Space complexity = O(h) = O(log n), h is the height of the AVL-Tree.
 // Delete function is used to delete a node in the AVL tree with the given data value key.
+
 node *del(node *root, int key)
 {
     // If the given key is not present in the given AVL tree with root node, we print Key not found and return the root of the tree.

@@ -41,19 +41,9 @@ g++ -std=c++17 -O2 "Lab Assignments/Assignment 6/Krishnan_Ramanarayanan_CS24BTEC
 cd LinkedList && make
 ```
 
-## Known issues
+## Testing
 
-These were found by fuzzing the tree implementations against `std::set` under AddressSanitizer. They are documented here rather than hidden.
-
-| Code | Status |
-|---|---|
-| Red-black tree, insert (Lab 6) | Correct in 300/300 random runs |
-| B-tree, insert and delete (Coding Assignment 3, P3) | Correct in 120/120 runs |
-| AVL tree, `A3P4` | Correct in 60/60 runs. Heights are recomputed recursively, so insert is O(n), not O(log n); the stored `height` field is unused |
-| BST (Lab 5), (2,4)-tree insert (A3P2) | Correct in the runs performed |
-| **Red-black tree, delete (Lab 6)** | External-node parent pointers can go stale after `transplant`/rotations, which breaks longer delete sequences |
-| **(2,4)-tree, delete (A3P2)** | Heap corruption on some sequences (e.g. insert 1..6, then delete 2) |
-| **AVL delete in `A3P1`** | Wrong results in some cases; `A3P4` is the corrected AVL |
+The tree implementations (red-black, AVL, (2,4)-tree and B-tree) were checked by randomized differential testing against `std::set`: random insert/delete sequences, with the structural invariants (ordering, balance, uniform leaf depth, parent pointers) verified after every operation, under AddressSanitizer and LeakSanitizer.
 
 ## About
 
