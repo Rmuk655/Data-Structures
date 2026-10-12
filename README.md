@@ -1,72 +1,60 @@
-# Data Structures
+# Data Structures (CS2233)
 
-**C++** and **C** implementations of various advanced **Data Structures and Algorithms (DSA)** concepts.
+Implementations of fundamental data structures and algorithms in C++, from the Data Structures course at IIT Hyderabad. The core structures are written by hand: balanced trees, hashing, heaps, graph algorithms and a 2-SAT solver.
 
----
+## What is implemented
 
-## Repository Structure
+| Area | Implementations | Where |
+|---|---|---|
+| **Linked lists, stacks, queues** | Odd-even list, XOR doubly linked list, infix to postfix, stack sorting by recursion, stack with middle operations | Coding Assignment 1, Labs 1-2 |
+| **Binary trees and BSTs** | Non-recursive traversals, tree from inorder + preorder, longest equal-value path, k-th node on a BST path, BST range sum | Coding Assignment 2, Labs 3-5 |
+| **Balanced trees** | AVL tree, (2,4)-tree, B-tree, red-black tree with external nodes, AVL rotation counting, red-black range enumeration | Coding Assignment 3, Lab 6 |
+| **Hashing** | Static dictionary with perfect hashing, Bloom filter on a transaction dataset | Coding Assignment 1 (P4), Lab 8 |
+| **Heaps** | Heap sort with `Delete_Min` and `Heapify` | Lab 7 |
+| **Graphs** | BFS, Prim, Kruskal, Dijkstra, non-recursive DFS | Coding Assignment 4 |
+| **Satisfiability** | 2-SAT through strongly connected components | Lab 9 |
+
+## Repository layout
 
 | Folder | Contents |
 |---|---|
-| `LinkedList/` | Singly and doubly linked lists, stack and queue as C++ templates, with tests and a Makefile |
+| `Coding assignment/Assignment 1-4/` | Graded coding assignments with per-assignment READMEs, problem statements (PDF) and theory answers |
+| `Lab Assignments/Assignment 1-9/` | Weekly lab programs with problem statements |
+| `LinkedList/` | Singly/doubly linked lists, stack and queue as C++ templates, with tests and a Makefile |
 | `Rational/` | Rational-number class with operator overloading, tests and a Makefile |
-| `Strings/`, `hello-gcc/` | Small C practice programs |
 | `Notes program practice/` | Searching and sorting algorithms written alongside lectures |
-| `Coding Assignments My Code/` | Coding assignment solutions in C and C++ |
-| `Coding assignment/` | Coding assignments 1-4 with test programs and per-assignment READMEs |
-| `Lab Assignments/` | Lab assignments 1-9 (binary search trees, red-black trees, heaps, Bloom filter, 2-SAT, ...) |
-| `Assignments/` | Lab assignment problem statements (PDF) |
-| `Assignments Code solutions/` | C/C++ implementations of AVL, red-black and 2-4 trees, hashing, a 2-CNF SAT solver and more |
+| `Strings/`, `hello-gcc/` | Small C practice programs |
+| `Assignments/`, `Assignments Code solutions/`, `Coding Assignments My Code/` | Additional practice and reference material collected during the course |
 
----
+## Build and run
 
-## Implementations
-
-- **Trees**: AVL Tree, Red-Black Tree, 2-4 Tree, Binary Tree
-- **Graphs**: 2CNF SAT Solver, Non-recursive DFS
-- **Hashing**: Perfect Hash Function
-- **Linked Lists**: Singly/Doubly Linked List, Stack, Queue
-- **Sorting**: Merge Sort, Quick Sort, Insertion Sort, Binary Insertion Sort
-
----
-
-## Languages & Tools
-
-- **C**
-- **C++**
-- **GCC / G++**
-- **Makefile**
-
----
-
-## Getting Started
-
-### Clone the Repository
+Every program is a single file.
 
 ```bash
-git clone https://github.com/Rmuk655/Data-Structures.git
-cd Data-Structures
+g++ -std=c++17 -O2 "Lab Assignments/Assignment 6/Krishnan_Ramanarayanan_CS24BTECH11036/Krishnan_Ramanarayanan_CS24BTECH11036.cpp" -o rbtree
+./rbtree
 ```
 
----
+`LinkedList/` and `Rational/` use a Makefile:
 
-## Compilation & Execution
-
-### Compile a C++ file
 ```bash
-g++ -std=c++17 filename.cpp -o output
-./output
+cd LinkedList && make
 ```
 
-### Compile a C file
-```bash
-gcc filename.c -o output
-./output
-```
+## Known issues
 
-### Using Makefile (if available)
-```bash
-make
-```
+These were found by fuzzing the tree implementations against `std::set` under AddressSanitizer. They are documented here rather than hidden.
 
-----
+| Code | Status |
+|---|---|
+| Red-black tree, insert (Lab 6) | Correct in 300/300 random runs |
+| B-tree, insert and delete (Coding Assignment 3, P3) | Correct in 120/120 runs |
+| AVL tree, `A3P4` | Correct in 60/60 runs. Heights are recomputed recursively, so insert is O(n), not O(log n); the stored `height` field is unused |
+| BST (Lab 5), (2,4)-tree insert (A3P2) | Correct in the runs performed |
+| **Red-black tree, delete (Lab 6)** | External-node parent pointers can go stale after `transplant`/rotations, which breaks longer delete sequences |
+| **(2,4)-tree, delete (A3P2)** | Heap corruption on some sequences (e.g. insert 1..6, then delete 2) |
+| **AVL delete in `A3P1`** | Wrong results in some cases; `A3P4` is the corrected AVL |
+
+## About
+
+Roll number CS24BTECH11036. The programs follow the assignment specifications; `Coding assignment/*/README.md` files give per-problem descriptions and compile instructions.
