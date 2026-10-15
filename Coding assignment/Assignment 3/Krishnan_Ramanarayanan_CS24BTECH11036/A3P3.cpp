@@ -330,9 +330,12 @@ int del(struct BTreeNode *&root, int key)
             root->count--;
             delete next_child;
 
+            // The old root has no keys left, so its only child becomes the new root and the old root is released.
             if (root->count == 0)
             {
+                struct BTreeNode *old_root = root;
                 root = prev_child;
+                delete old_root;
             }
 
             del(prev_child, key);
@@ -429,8 +432,13 @@ int del(struct BTreeNode *&root, int key)
         root->count--;
         delete child_with_key;
 
+        // The old root has no keys left, so its only child becomes the new root and the old root is released.
         if (root->count == 0)
+        {
+            struct BTreeNode *old_root = root;
             root = sibling_1;
+            delete old_root;
+        }
 
         child_with_key = sibling_1;
     }
@@ -463,9 +471,12 @@ int del(struct BTreeNode *&root, int key)
         root->count--;
         delete sibling_2;
 
+        // The old root has no keys left, so its only child becomes the new root and the old root is released.
         if (root->count == 0)
         {
+            struct BTreeNode *old_root = root;
             root = child_with_key;
+            delete old_root;
         }
     }
     del(child_with_key, key);
@@ -605,6 +616,12 @@ int main()
             if (search(root, key))
             {
                 del(root, key);
+                // If the last key of a root with no children was deleted, the empty root is released so that it does not leak.
+                if (root != nullptr && root->count == 0 && no_of_children(root) == 0)
+                {
+                    delete root;
+                    root = nullptr;
+                }
                 cout << key << " deleted" << endl;
             }
             // If a node with the given data = key doesn't exist in the B-Tree, then we cannot delete it and hence we print the error message given below.

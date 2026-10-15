@@ -61,6 +61,25 @@ bool is_ext_node(Node *node)
     return node->left == node && node->right == node;
 }
 
+// Function free_tree releases every node of the RB-Tree rooted at root, including its external nodes.
+// Real nodes come from new and external nodes from malloc (see create_new_node and create_ext_node),
+// so they are released with delete and free respectively.
+void free_tree(Node *root)
+{
+    if (root == nullptr)
+    {
+        return;
+    }
+    if (is_ext_node(root))
+    {
+        free(root);
+        return;
+    }
+    free_tree(root->left);
+    free_tree(root->right);
+    delete root;
+}
+
 // Search function searches for a given node in a tree with data key.
 Node *search(Node *root, int key)
 {
@@ -607,6 +626,8 @@ void test()
     cout << "The preorder traversal of the tree is: ";
     preorder(root);
     cout << endl;
+    // The tree built for the given test case is local to this function, so we release it before returning.
+    free_tree(root);
 }
 
 // The main function runs the code with user input.
@@ -693,4 +714,6 @@ int main()
         // We reuse the outer op; declaring it again here would shadow it and the loop would never exit.
         cin >> op;
     }
+    // We release the tree before exiting.
+    free_tree(root);
 }
