@@ -5,26 +5,26 @@
 
 # Folder structure:
 CS24BTECH11036/
-│-- A3P1.c
-│-- A3P2.c
-│-- A3P3.c
-│-- A3P4.c
-│-- A3P5.c
+│-- A3P1.cpp
+│-- A3P2.cpp
+│-- A3P3.cpp
+│-- A3P4.cpp
+│-- A3P5.cpp
 |-- Theory_answers.pdf
 │-- README.md
 
 ## General Instructions
 - Each problem is solved in a separate C file:
-  - `A3P1.c` → AVL-Tree Construction (Query based)
-  - `A3P2.c` → (2-4)-Tree Construction (Query based)
-  - `A3P3.c` → B-Tree Construction (Query based)
-  - `A3P4.c` → No of rotations (single and double) in an AVL Tree (Standalone Batch I/O)
-  - `A3P5.c` → RB–ENUMERATE(x, a, b) (Standalone Batch I/O)
+  - `A3P1.cpp` → AVL-Tree Construction (Query based)
+  - `A3P2.cpp` → (2-4)-Tree Construction (Query based)
+  - `A3P3.cpp` → B-Tree Construction (Query based)
+  - `A3P4.cpp` → No of rotations (single and double) in an AVL Tree (Standalone Batch I/O)
+  - `A3P5.cpp` → RB–ENUMERATE(x, a, b) (Standalone Batch I/O)
 
 - All programs are written in C++.
 - To compile:  
   bash
-  gcc filename.c -o filename
+  g++ filename.cpp -o filename
 
 - To run:  
   bash
@@ -130,7 +130,7 @@ File: A3P1.cpp
 
 **Compile:**
 bash
-gcc A3P1.cpp -o A3P1.exe
+g++ A3P1.cpp -o A3P1.exe
 
 **Run:**
 bash
@@ -181,15 +181,15 @@ Each node may contain 1–3 keys and up to 4 children.
 
 ---
 
-File: A2P2.cpp
+File: A3P2.cpp
 
 **Compile:**
 bash
-gcc A2P2.cpp -o A2P2.exe
+g++ A3P2.cpp -o A3P2.exe
 
 **Run:**
 bash
-./A2P2.exe
+./A3P2.exe
 
 ### Input Format
 Same as the **global query-based format**:
@@ -235,15 +235,15 @@ Each node stores:
 
 ---
 
-File: A2P3.cpp
+File: A3P3.cpp
 
 **Compile:**
 bash
-gcc A2P3.cpp -o A2P3.exe
+g++ A3P3.cpp -o A3P3.exe
 
 **Run:**
 bash
-./A2P3.exe
+./A3P3.exe
 
 ### Input Format
 Same as the **global query-based format**:
@@ -285,15 +285,15 @@ Count the number of **single** and **double rotations** performed during all ins
 
 ---
 
-File: A2P4.cpp
+File: A3P4.cpp
 
 **Compile:**
 bash
-gcc A2P4.cpp -o A2P4.exe
+g++ A3P4.cpp -o A3P4.exe
 
 **Run:**
 bash
-./A2P4.exe
+./A3P4.exe
 
 ### Input Format
 N
@@ -347,15 +347,15 @@ such that `a ≤ k ≤ b` in a **Red–Black Tree** rooted at node `x`.
 
 ---
 
-File: A2P5.cpp
+File: A3P5.cpp
 
 **Compile:**
 bash
-gcc A2P5.cpp -o A2P5.exe
+g++ A3P5.cpp -o A3P5.exe
 
 **Run:**
 bash
-./A2P5.exe
+./A3P5.exe
 
 ### Input Format and Output Format
 (Not governed by the global I/O format.)
