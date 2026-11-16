@@ -11,3 +11,9 @@ __MACOSX/
 
 DS 2023/
 backup_cs2233/
+
+# Local tool and editor state
+.claude/
+.graphify/
+graphify-out/
+.tools/
