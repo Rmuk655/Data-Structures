@@ -42,7 +42,3 @@ g++ -std=c++17 -O2 "Lab Assignments/Assignment 6/Krishnan_Ramanarayanan_CS24BTEC
 ```bash
 cd LinkedList && make
 ```
-
-## Testing
-
-The tree implementations (red-black, AVL, (2,4)-tree and B-tree) were checked by randomized differential testing against `std::set`: random insert/delete sequences, with the structural invariants (ordering, balance, uniform leaf depth, parent pointers) verified after every operation, under AddressSanitizer and LeakSanitizer.
