@@ -186,7 +186,7 @@ int test::additionaltestcases()
     return allPassed ? 0 : 1;
 }
 
-void testComparisonOperators()
+void test::testComparisonOperators()
 {
     Rational r1(1, 2);
     Rational r2(2, 4);

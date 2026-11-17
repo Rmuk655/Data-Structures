@@ -126,7 +126,7 @@ public:
             // m is the size of the hash table
             // This method is fast and provides good distribution of hash values.
             // It is particularly effective for random or uniformly distributed keys.            
-                return ((a * key + b) % p) % m;
+                return ((a * (key % p) + b) % p) % m;
             // XOR-based hashing uses bitwise operations to combine bits of the key
             // The key is shifted left and right, and the bits are XORed together  
             // The result is then taken modulo m to ensure it fits within the hash table size.
@@ -215,6 +215,7 @@ public:
             // m is the size of the hash table
             // This method is fast 
             case FIBONACCI:
+                if (m <= 1) return 0; // shift by 64 is undefined
                 return ((key * 11400714819323198485ull) >> (64 - (int)std::log2(m))) % m;
             // DJBX33A is a classic hash function used in many programming languages
             // It uses a simple formula to compute the hash value   
@@ -320,7 +321,9 @@ public:
     }
 
     long long universal_hash(long long key, const HashFunction& hf) const {
-        return hf.apply(key);
+        // Signed overflow in some hash types can give a negative value; map it into [0, m).
+        long long h = hf.apply(key) % hf.m;
+        return h < 0 ? h + hf.m : h;
     }
 
     int build(const std::vector<Record>& records) {

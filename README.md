@@ -28,6 +28,14 @@ Implementations of fundamental data structures and algorithms in C++, written by
 | `Strings/`, `hello-gcc/` | Small C practice programs |
 | `Assignments Code solutions/` | Implementations for the programs in `problem-statements/` (postfix evaluator, queues, perfect hashing, AVL, red-black and 2-4 trees, heap sort, 2-CNF SAT), built with a Makefile |
 
+## Setup
+
+Ubuntu or WSL with `sudo`. Only `g++`/`gcc`, `make` and `gdb` are needed; there are no other dependencies or data downloads.
+
+```bash
+bash setup.sh      # installs build-essential, gdb, make; builds LinkedList and one Makefile target as a smoke test
+```
+
 ## Build and run
 
 Every program is a single file.
